@@ -13,6 +13,7 @@ public class EvoyProduction  {
         ClearScreen cls = new ClearScreen();
         Baju baju = new Baju();
         Pelanggan pelanggan = new Pelanggan();
+        Pembayaran pembayaran = new Pembayaran();
         
         db.connect();
         
@@ -51,7 +52,7 @@ public class EvoyProduction  {
                         //menuCariData();
                         break;
                     case 5:
-                        //menuHapusData();
+                        pembayaran.bayar();
                         break;
                     default:
                         System.out.println("Pilihan salah");
