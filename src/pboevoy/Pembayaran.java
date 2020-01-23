@@ -7,89 +7,88 @@ public class Pembayaran {
     
     ResultSet rs;
     ConnectDB db = new ConnectDB("root", "");
-    Pelanggan pelanggan = new Pelanggan();
     BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
     char y, n;
     
     public void bayar() {
         try {
+            Pelanggan pelanggan = new Pelanggan();
             db.connect();
 
-         System.out.print("|  No Sewa : ");
-         String no_sewa = input.readLine();
+            System.out.print("|  No Sewa : ");
+            String no_sewa = input.readLine();
 
-          //  System.out.print("|  ID Pelanggan \t: ");
-          //  String id_pelanggan = input.readLine();
+            System.out.print("|  ID Pelanggan \t: ");
+            String id_pelanggan = input.readLine();
             
-         System.out.print("|  Baju yang dipesan : \t");
-          String nama_baju = input.readLine();
+            System.out.print("|  Baju yang dipesan : \t");
+            String nama_baju = input.readLine();
             
-         System.out.print("|  Jumlah Baju : \t");
+            System.out.print("|  Jumlah Baju : \t");
             int qty = Integer.parseInt(input.readLine());
 
-         //  System.out.print("|  Tgl Sewa (YYYY-MM-DD) \t: ");
-         //   String tgl_sewa = input.readLine();
+            System.out.print("|  Tgl Sewa (YYYY-MM-DD) \t: ");
+            String tgl_sewa = input.readLine();
 
-         //   System.out.print("|  Tgl Kembali (YYYY-MM/-DD \t: ");
-        //  String tgl_kembali = input.readLine();
+            System.out.print("|  Tgl Kembali (YYYY-MM/-DD \t: ");
+            String tgl_kembali = input.readLine();
             
-        
-          // System.out.print("|  DP Sewa \t: ");
-          //int dp_sewa = Integer.parseInt(input.readLine());
-
-            //Insert to table sewa
-          //  String sql = "INSERT INTO sewa (`no_sewa`, `id_pelanggan, `tgl_sewa`, `tgl_kembali`, `total_bayar`, `dp_sewa`) "
-            //       + "VALUES ('%s', '%s', '%s', '%s', '%d', '%d') ";
-           // sql = String.format(sql, no_sewa, id_pelanggan,  tgl_sewa, tgl_kembali,  dp_sewa);
+            System.out.print("|  DP Sewa \t: ");
+            int dp_sewa = Integer.parseInt(input.readLine());
+   
+            //Ambil isi dari qty 
+            String getQty  = String.format("SELECT qty FROM detail_sewa WHERE qty = '%d'", qty);
+            rs =  db.getStatement().executeQuery(getQty);
             
-            String sql = "INSERT INTO detail_sewa (`qty`) VALUES ('%d')";
-            sql = String.format(sql, qty);
-            db.getStatement().execute(sql);
+            rs.next();
+            int jumlah = rs.getInt("qty");
             
-           String getQty  = String.format("SELECT qty FROM detail_sewa WHERE qty = '%d'", qty);
-           
-           rs =  db.getStatement().executeQuery(getQty);
-           
-           rs.next();
-           int jumlah = rs.getInt("qty");
-           
+            //Ambil kode baju
+            String getKodeBaju = String.format("SELECT kode_baju FROM baju WHERE nama_baju = '%s'", nama_baju);
+            rs = db.getStatement().executeQuery(getKodeBaju);
+            
+            rs.next();
+            String kode_baju = rs.getString("kode_baju");
+            
+            //Ambil harga baju dari tabel baju yang disewa
             String getHarga = String.format("SELECT harga FROM baju WHERE nama_baju = '%s'", nama_baju);
             getHarga = String.format(getHarga, nama_baju);
-            
             db.getStatement().execute(getHarga);
             
             rs = db.getStatement().executeQuery(getHarga);
+            
+            rs.next();
+            int harga = rs.getInt("harga");
            
-           rs.next();
-           int harga = rs.getInt("harga");
-           
-           
-           int total_bayar = harga * jumlah;
-           String getTotalBayar = "INSERT INTO sewa (`no_sewa`, `total_bayar`) VALUES ('%s', '%d')";
-           getTotalBayar = String.format(getTotalBayar, no_sewa, total_bayar);
-           
-           db.getStatement().execute(getTotalBayar);
-              
+            //Menghitung total bayar
+            int total_bayar = harga * jumlah;
+               
+            //Tambah data sewa
+            String tambah_sewa = "INSERT INTO sewa (`no_sewa`, `id_pelanggan`, `tgl_sewa`, `tgl_kembali`, `total_bayar`, `dp_sewa`) "
+                   + "VALUES ('%s', '%s', '%s', '%s', '%d', '%d') ";
+            tambah_sewa = String.format(tambah_sewa, no_sewa, id_pelanggan,  tgl_sewa, tgl_kembali, total_bayar, dp_sewa);
+            
             //Cek ID Pelanggan apakah sudah terdaftar
-            //String sql2 = String.format("SELECT id_pelanggan from pelanggan WHERE id_pelanggan='%s'", id_pelanggan);
+            String sql2 = String.format("SELECT id_pelanggan from pelanggan WHERE id_pelanggan='%s'", id_pelanggan);
                 
-            //rs = db.getStatement().executeQuery(sql2);
+            rs = db.getStatement().executeQuery(sql2);
             
-            
-            //if(rs.next() == true) {
-              //  System.out.println("Data Pelanggan dengan " + id_pelanggan + " sudah terdaftar");
-              //  db.getStatement().execute(sql);
-           // } else {
-              //  System.out.println("Data pelanggan dengan " + id_pelanggan + "belum terdaftar");
-              //  System.out.print("Apakah pelanggan akan didaftarkan ? ");
-              //  char daftar = input.readLine().charAt(0);
+            if(rs.next() == true) { //Jika data pelanggan ada 
+                System.out.println("Data Pelanggan dengan " + id_pelanggan + " sudah terdaftar");
+                db.getStatement().execute(tambah_sewa);
+            } else {
+                System.out.println("Data pelanggan dengan " + id_pelanggan + "belum terdaftar");
+                System.out.print("Apakah pelanggan akan didaftarkan ? ");
+                char daftar = (char)input.read();
                 
-              //  if(daftar == y ) {
-               //     pelanggan.tambahDataPelanggan();
-               // } else if (daftar == n) {
-                    
-               //}
-         //   }
+                if(daftar != y ) {
+                    pelanggan.tambahDataPelanggan();
+                } else if (daftar == n) {
+                    System.exit(0);
+                } else {
+                    System.out.println("Salah");
+                }
+            }
     
         }
         catch(Exception e) 
