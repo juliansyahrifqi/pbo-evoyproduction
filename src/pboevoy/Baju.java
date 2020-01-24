@@ -3,7 +3,7 @@ package pboevoy;
 import java.io.*;
 import java.sql.*;
 
-public class Baju {
+public class Baju{
     
     ResultSet rs;
     ConnectDB db = new ConnectDB("root", "");
@@ -143,7 +143,8 @@ public class Baju {
             System.out.format("======================================%n");
             System.out.format("|           UBAH DATA BAJU           |%n");
             System.out.format("+====================================+%n");
-        // ambil input dari user
+        
+            // ambil input dari user
             System.out.print("Kode baju yang mau diedit: ");
             String kode_baju = input.readLine().trim();
            
