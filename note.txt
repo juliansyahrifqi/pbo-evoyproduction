@@ -1,0 +1,7 @@
+besok kerjain fitur 
+1. cari data pelanggan (baru berdasarkan id_pelanggan) berdasarkan id dan nama
+2. cari data baju ( baru berdasarkan id baju)berdasarkan kode dan nama
+3. fitur sewa
+4. tampil fitur sewa
+5. tampil fitur detail_sewa
+6. tambah ke detail_sewa di fitur pembayaran ( erorr ngambil jumlah hari )
