@@ -63,32 +63,16 @@ public class Pembayaran {
            
             //Menghitung total bayar
             int total_bayar = harga * jumlah;
-                     
+                    
             //Tambah data sewa
             String tambah_sewa = "INSERT INTO sewa (`no_sewa`, `id_pelanggan`, `tgl_sewa`, `tgl_kembali`, `total_bayar`, `dp_sewa`) "
                    + "VALUES ('%s', '%s', '%s', '%s', '%d', '%d') ";
             tambah_sewa = String.format(tambah_sewa, no_sewa, id_pelanggan,  tgl_sewa, tgl_kembali, total_bayar, dp_sewa);
             
-            //Menghitung jml_hari
-            String getJmlHari = String.format("SELECT DATEDIFF (tgl_kembali, tgl_sewa) FROM sewa WHERE no_sewa = '%s'", no_sewa);
-            getJmlHari = String.format(getJmlHari, no_sewa);
-            db.getStatement().execute(getJmlHari);
-           
-            rs = db.getStatement().executeQuery(getJmlHari);
-            rs.next();
-            int jml_hari = Integer.parseInt("getJmlHari");
-            
-            denda=0;
-            if(jml_hari > 3) {
-                 denda = harga;
-            } else {
-                 denda = 0;
-            }
-            
             //Tambah detail_sewa
-            String tambah_detail_sewa = "INSERT INTO detail_sewa (`no_sewa`, `kode_baju`, `qty`, `jml_hari`, `denda`, `total_bayar) "
-                    + "VALUES ('%s', '%s', '%d', '%d'";
-            tambah_detail_sewa = String.format(tambah_detail_sewa, no_sewa, kode_baju, qty, jml_hari, denda, total_bayar);
+            //String tambah_detail_sewa = "INSERT INTO detail_sewa (`no_sewa`, `kode_baju`, `qty`, `jml_hari`, `denda`, `total_bayar) "
+                  //  + "VALUES ('%s', '%s', '%d', '%d'";
+            //tambah_detail_sewa = String.format(tambah_detail_sewa, no_sewa, kode_baju, qty, jml_hari, denda, total_bayar);
             
             //Cek ID Pelanggan apakah sudah terdaftar
             String sql2 = String.format("SELECT id_pelanggan from pelanggan WHERE id_pelanggan='%s'", id_pelanggan);
@@ -98,7 +82,7 @@ public class Pembayaran {
             if(rs.next() == true) { //Jika data pelanggan ada 
                 System.out.println("Data Pelanggan dengan " + id_pelanggan + " sudah terdaftar");
                 db.getStatement().execute(tambah_sewa);
-                db.getStatement().execute(tambah_detail_sewa);
+                //db.getStatement().execute(tambah_detail_sewa);
             } else {
                 System.out.println("Data pelanggan dengan " + id_pelanggan + "belum terdaftar");
                 System.out.print("Apakah pelanggan akan didaftarkan ? ");
@@ -112,6 +96,19 @@ public class Pembayaran {
                     System.out.println("Salah");
                 }
             }
+            
+            //Menghitung jml_hari
+            String getJmlHari = String.format("SELECT DATEDIFF (tgl_kembali, tgl_sewa) AS jml_hari FROM sewa WHERE no_sewa = '%s'", no_sewa);
+            getJmlHari = String.format(getJmlHari, no_sewa);
+            db.getStatement().execute(getJmlHari);
+           
+            rs = db.getStatement().executeQuery(getJmlHari);
+            
+            rs.next();
+            int jml_hari = rs.getInt("jml_hari");
+            
+            System.out.println(jml_hari);
+         
     
         }
         catch(Exception e) 
