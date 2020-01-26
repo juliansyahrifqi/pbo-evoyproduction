@@ -13,25 +13,29 @@ public class EvoyProduction  {
         ClearScreen cls = new ClearScreen();
         Baju baju = new Baju();
         Pelanggan pelanggan = new Pelanggan();
+        Penyewaan sewa = new Penyewaan();
         Pembayaran pembayaran = new Pembayaran();
         
         db.connect();
         
-        cls.clrscr();
-       
-        System.out.println("|   1. Data Pelanggan               |");
-        System.out.println("|   2. Data Baju                    |");
-        System.out.println("|   3. Ubah Data                    |");
-        System.out.println("|   4. Cari Data                    |");
-        System.out.println("|   5. Hapus Data                   |");
-        System.out.println("|   0. Keluar                       |");
-        System.out.format("=====================================%n");
-        System.out.println("");
-        System.out.print("Pilihan Anda : ");
-          
         try {   
-            
-            if (!db.getConnection().isClosed()) {
+            while (!db.getConnection().isClosed()) {
+                
+                cls.clrscr();
+                System.out.format("=====================================%n");
+                System.out.format("|          SEWA BAJU ADAT           |%n");
+                System.out.format("|         EVOY PRODUCTION           |%n");
+                System.out.format("=====================================%n");
+                System.out.println("|   1. Data Pelanggan               |");
+                System.out.println("|   2. Data Baju                    |");
+                System.out.println("|   3. Ubah Data                    |");
+                System.out.println("|   4. Penyewaan Baju               |");
+                System.out.println("|   5. Pembayaran Sewa              |");
+                System.out.println("|   0. Keluar                       |");
+                System.out.format("=====================================%n");
+                System.out.println("");
+                System.out.print("Pilihan Anda : ");
+
                 int pilihan = Integer.parseInt(input.readLine());
 
                 switch(pilihan) {
@@ -49,16 +53,16 @@ public class EvoyProduction  {
                         //menuUbahData();
                         break;
                     case 4:
-                        //
+                        sewa.sewa_baju();
                         break;
                     case 5:
-                        pembayaran.bayar();
+                        pembayaran.bayar_sewa();
                         break;
                     default:
                         System.out.println("Pilihan salah");
                         //clrscr();
-                }    
-            }    
+                }        
+            }        
             db.closeConnection();
         }  
         catch(Exception e ) {

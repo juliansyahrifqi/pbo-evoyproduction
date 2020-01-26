@@ -8,6 +8,8 @@ public class Pelanggan {
     ResultSet rs;
     ConnectDB db = new ConnectDB("root", "");
     BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+    ClearScreen cls = new ClearScreen();
+    String id_pelanggan, nama, alamat, kota, no_tlp;
     
     public void menuPelanggan() {
         System.out.format("=====================================%n");
@@ -41,15 +43,14 @@ public class Pelanggan {
                     ubahDataPelanggan();
                     break;
                 case 4:
-                    cariDataPelanggan();
+                    menuCariPelanggan();
                     break;
                 case 5:
                     hapusDataPelanggan();
                     break;
                 default:
                     System.out.println("Pilihan salah");
-                    //
-                    //
+                    break;
             }
         }
         catch(Exception e) {
@@ -62,32 +63,31 @@ public class Pelanggan {
         try 
         {     
             db.connect();
+            cls.clrscr(); //Method clear screen
             
             System.out.format("======================================%n");
             System.out.format("|        TAMBAH DATA PELANGGAN       |%n");
             System.out.format("+====================================+%n");
             
             System.out.print("|  ID_Pelanggan : ");
-            String id_pelanggan = input.readLine();
+            id_pelanggan = input.readLine();
               
             System.out.print("|  Nama \t: ");
-            String nama = input.readLine();
+            nama = input.readLine();
             
             System.out.print("|  Alamat \t: ");
-            String alamat = input.readLine();
+            alamat = input.readLine();
             
             System.out.print("|  Kota \t: ");
-            String kota = input.readLine();
+            kota = input.readLine();
             
             System.out.print("|  No. Tlp \t: ");
-            String no_tlp = input.readLine();
+            no_tlp = input.readLine();
             
             String sql = "INSERT INTO `evoyproduction`.`pelanggan` (`id_pelanggan`, `Nama`, `Alamat`, `kota`, `no_tlp`) "
                     + "VALUES ('%s', '%s', '%s', '%s', '%s');";
             sql = String.format(sql, id_pelanggan, nama, alamat, kota, no_tlp);
-           
-            db.getStatement().execute(sql);
-                      
+                       
             int intBaris = db.getStatement().executeUpdate(sql);
                 if ( intBaris > 0 ) {
                     System.out.println("Penambahan Data berhasil");
@@ -95,6 +95,8 @@ public class Pelanggan {
                 else {
                     System.out.println("Penambahan Data gagal");
                 }
+            System.out.print("Tekan enter untuk kembali");
+            input.readLine();
         }
         catch(IOException | SQLException e) {
             System.out.println(e);
@@ -105,6 +107,7 @@ public class Pelanggan {
     {   
         try {
             db.connect();
+            cls.clrscr(); //Method clear screen
             
             String sql = "SELECT * FROM pelanggan";
             rs = db.getStatement().executeQuery(sql);
@@ -119,56 +122,68 @@ public class Pelanggan {
 
             while(rs.next()) {
 
-               String idPelanggan = rs.getString("id_pelanggan");
-               String namaPelanggan = rs.getString("nama");
-               String alamat = rs.getString("alamat");
-               String kota = rs.getString("kota");
-               String no_tlp = rs.getString("no_tlp");
+               id_pelanggan = rs.getString("id_pelanggan");
+               nama = rs.getString("nama");
+               alamat = rs.getString("alamat");
+               kota = rs.getString("kota");
+               no_tlp = rs.getString("no_tlp");
 
-               System.out.format(tbl, idPelanggan, namaPelanggan, alamat, kota, no_tlp);
+               System.out.format(tbl, id_pelanggan, nama, alamat, kota, no_tlp);
             }
             System.out.format("+==============+==============+================+==========+==============+%n");
-
-            db.closeConnection();
+            System.out.print("Tekan enter untuk kembali");
+            input.readLine();
         }
         catch(Exception e) {
             System.out.println(e);
         }  
     }
     
+    
     public void ubahDataPelanggan()
     {
-        db.connect();
+            db.connect();
+            cls.clrscr(); //Method clear screen
+            
+            System.out.format("======================================%n");
+            System.out.format("|          UBAH DATA PELANGGAN       |%n");
+            System.out.format("+====================================+%n");
+        
         try 
-            {  
-            // ambil input dari user
-            System.out.print("ID Pelanggan yang mau diedit: ");
-            String id_pelanggan = input.readLine().trim();
+        {  
+            // Input dari user
+            System.out.print("| ID Pelanggan  : ");
+            id_pelanggan = input.readLine();
 
-            System.out.print("Nama : ");
-            String nama= input.readLine().trim();
+            System.out.print("| Edit Nama \t: ");
+            nama= input.readLine();
 
-            System.out.print("Alamat : ");
-            String alamat = input.readLine().trim();
+            System.out.print("| Edit Alamat   : ");
+            alamat = input.readLine();
 
-            System.out.print("Kota : ");
-            String kota = input.readLine().trim();
+            System.out.print("| Edit Kota \t: ");
+            kota = input.readLine();
 
-            System.out.print("No. Telp : ");
-            String no_tlp = input.readLine().trim();
+            System.out.print("| Edit No. Telp : ");
+            no_tlp = input.readLine();
 
-            // query update
+            // Perintah query update
             String sql = "UPDATE `evoyproduction`.`pelanggan` SET `nama`='%s', `alamat`='%s', `kota`='%s', `no_tlp`='%s' WHERE `id_pelanggan`='%s'";
             sql = String.format(sql, nama, alamat, kota, no_tlp, id_pelanggan);
 
-            // update data baju
-            boolean status = db.getStatement().execute(sql);
-            if (status != true) {
-                System.out.println("Data berhasil diubah");
+            // Menyimpan nilai hasil queri
+            int hasil = db.getStatement().executeUpdate(sql);
+          
+            //Jika ada baris yang terpengaruh dari hasil query
+            if (hasil > 0) {
+                System.out.println("Status : Data berhasil diubah");
             } 
             else {
-                System.out.println("Data gagal diubah");
+                System.out.println("Status : Data gagal diubah");
             }
+            
+            System.out.print("Tekan enter untuk kembali");
+            input.readLine();
         } 
         catch (IOException | SQLException e) 
         {
@@ -176,14 +191,53 @@ public class Pelanggan {
         }
     }
     
-    public void cariDataPelanggan() 
+    public void menuCariPelanggan() {
+        System.out.format("======================================%n");
+        System.out.format("|           CARI DATA PELANGGAN       |%n");
+        System.out.format("+=====================================+%n");
+        System.out.println("| 1. Cari Pelanggan berdasarkan ID   |");
+        System.out.println("| 2. Cari Pelanggan berdasarkan Nama |");
+        System.out.println("| 3. Cari Pelanggan berdasarkan Kota |");
+        System.out.println("| 0. Keluar                          |");
+        System.out.format("=====================================%n");
+        System.out.println("");
+        System.out.print("Pilihan Anda : ");
+
+        try {
+            int pilihan = Integer.parseInt(input.readLine());
+
+            switch(pilihan) {
+                case 0:
+                    System.exit(0);
+                    break;
+                case 1: 
+                    cariDataPelangganID();
+                    break;
+                case 2:
+                    cariDataPelangganNama();
+                    break;
+                case 3:
+                    cariDataPelangganKota();
+                    break;
+                default:
+                    System.out.println("Pilihan Salah");
+                    break;
+            }
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void cariDataPelangganID() 
     {
         try 
         {
             db.connect();
+            cls.clrscr(); //Method clear screen
             
-            System.out.printf("Masukkan ID :");
-            String id_pelanggan = input.readLine();
+            System.out.print("Masukkan ID :");
+            id_pelanggan = input.readLine();
             
             String sql = String.format("SELECT * FROM pelanggan WHERE `id_pelanggan` ='%s'", id_pelanggan);
             
@@ -199,14 +253,94 @@ public class Pelanggan {
             
             while(rs.next()) {
                 id_pelanggan = rs.getString("id_pelanggan");
-                String nama = rs.getString("nama");
-                String alamat = rs.getString("alamat");
-                String kota = rs.getString("kota");
-                String no_tlp = rs.getString("no_tlp");
+                nama = rs.getString("nama");
+                alamat = rs.getString("alamat");
+                kota = rs.getString("kota");
+                no_tlp = rs.getString("no_tlp");
                 
                 System.out.format(tbl, id_pelanggan, nama, alamat, kota, no_tlp);
             }
-            System.out.format("+==============+==============+================+==========+==============+%n");   
+            System.out.format("+==============+==============+================+==========+==============+%n"); 
+            System.out.print("Tekan enter untuk kembali");
+            input.readLine();
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }       
+    }
+    
+    public void cariDataPelangganNama() {
+        try {
+            db.connect();
+            cls.clrscr(); //Method clear screen
+            
+            System.out.print("Masukkan Nama : ");
+            nama = input.readLine();
+            
+            String sql = String.format("SELECT * FROM pelanggan WHERE `nama` ='%s'", nama);
+            
+            rs = db.getStatement().executeQuery(sql);
+            
+            String tbl ="| %-12s | %-12s | %-14s | %-8s | %-12s | %n";
+
+            System.out.format("=========================================================================%n");
+            System.out.format("|                       Data Pelanggan Evoy Production                   |%n");
+            System.out.format("+==============+==============+================+==========+==============+%n");
+            System.out.format("| ID_Pelanggan |     Nama     |     Alamat     |   Kota   |    No. Tlp   |%n");
+            System.out.format("+==============+==============+================+==========+==============+%n");
+            
+            while(rs.next()) {
+                id_pelanggan = rs.getString("id_pelanggan");
+                nama = rs.getString("nama");
+                alamat = rs.getString("alamat");
+                kota = rs.getString("kota");
+                no_tlp = rs.getString("no_tlp");
+                
+                System.out.format(tbl, id_pelanggan, nama, alamat, kota, no_tlp);
+            }
+            System.out.format("+==============+==============+================+==========+==============+%n"); 
+            System.out.print("Tekan enter untuk kembali");
+            input.readLine();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void cariDataPelangganKota() 
+    {
+        try 
+        {
+            db.connect();
+            cls.clrscr(); //Method clear screen
+            
+            System.out.print("Masukkan Kota : ");
+            kota = input.readLine();
+            
+            String sql = String.format("SELECT * FROM pelanggan WHERE kota ='%s'", kota);
+            
+            rs = db.getStatement().executeQuery(sql);
+            
+            String tbl ="| %-12s | %-12s | %-14s | %-8s | %-12s | %n";
+
+            System.out.format("=========================================================================%n");
+            System.out.format("|                       Data Pelanggan Evoy Production                   |%n");
+            System.out.format("+==============+==============+================+==========+==============+%n");
+            System.out.format("| ID_Pelanggan |     Nama     |     Alamat     |   Kota   |    No. Tlp   |%n");
+            System.out.format("+==============+==============+================+==========+==============+%n");
+            
+            while(rs.next()) {
+                id_pelanggan = rs.getString("id_pelanggan");
+                nama = rs.getString("nama");
+                alamat = rs.getString("alamat");
+                kota = rs.getString("kota");
+                no_tlp = rs.getString("no_tlp");
+                
+                System.out.format(tbl, id_pelanggan, nama, alamat, kota, no_tlp);
+            }
+            System.out.format("+==============+==============+================+==========+==============+%n"); 
+            System.out.print("Tekan enter untuk kembali");
+            input.readLine();
         }
         catch(Exception e) {
             System.out.println(e);
@@ -217,20 +351,30 @@ public class Pelanggan {
     {
         try 
         {
-        // ambil input dari user
-            System.out.print("ID Pelanggan yang mau dihapus: ");
-            String id_pelanggan = input.readLine().trim();
-        
-            // buat query hapus
-            String sql = String.format("DELETE FROM baju WHERE `id_pelanggan` ='%s'", id_pelanggan);
-            // hapus data
+            db.connect();
+            cls.clrscr(); //Method clear screen
+            
+            System.out.format("======================================%n");
+            System.out.format("|        HAPUS DATA PELANGGAN         |%n");
+            System.out.format("+====================================+%n");
+            
+            //Input user
+            System.out.print("| ID Pelanggan yang mau dihapus: ");
+            id_pelanggan = input.readLine();
+            
+            //Perintah query hapus data
+            String sql = String.format("DELETE FROM pelanggan WHERE id_pelanggan = '%s'", id_pelanggan);
+            
+            //Eksekusi query hapus data
             db.getStatement().execute(sql);
-
-            System.out.println("Data telah terhapus...");
+            
+            
+            System.out.print("Tekan enter untuk kembali");
+            input.readLine();
         } 
-        catch (IOException | SQLException e) 
+        catch (Exception e) 
         {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 }
