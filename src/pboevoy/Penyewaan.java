@@ -74,6 +74,9 @@ public class Penyewaan {
             if(rs.next() == true) //Jika data pelanggan ada 
             { 
                 db.getStatement().execute(tambah_sewa);
+                System.out.println("Data berhasil ditambahkan");
+                System.out.println("Tekan enter untuk kembali");
+                input.readLine();
             } else 
             {
                 System.out.println("Data pelanggan dengan " + id_pelanggan + "belum terdaftar");
@@ -129,9 +132,18 @@ public class Penyewaan {
             
             db.getStatement().execute(update_sewa);
         }
+        catch(NumberFormatException e) {
+            try {
+                System.out.println("Jumlah dan DP Sewa harus berupa angka!");
+                System.out.print("Tekan enter untuk kembali");
+                input.readLine();
+            }
+            catch(IOException err) {
+                System.out.print(err);
+            }
+        } 
         catch(Exception e) {
             System.out.println(e);
         }
-        
     }
 }

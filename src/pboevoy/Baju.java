@@ -22,6 +22,7 @@ public class Baju{
         System.out.println("|   3. Ubah Data Baju               |");
         System.out.println("|   4. Cari Data Baju               |");
         System.out.println("|   5. Hapus Data Baju              |");
+        System.out.println("|   6. Kembali                      |");
         System.out.println("|   0. Keluar                       |");
         System.out.format("=====================================%n");
         System.out.println("");
@@ -49,6 +50,7 @@ public class Baju{
                 case 5:
                     hapusDataBaju();
                     break;
+                case 6:
                 default:
                     System.out.println("Pilihan salah");
                     break;
@@ -56,8 +58,7 @@ public class Baju{
         }
         catch(Exception e) {
             System.out.println(e);
-        }
-        
+        }      
     }
     
     public void tambahDataBaju() {    
@@ -85,19 +86,38 @@ public class Baju{
                     + "VALUES ('%s', '%s', '%d', '%d');";
             
             sql = String.format(sql, kode_baju, nama_baju, stok_baju, harga);
-                   
             int intBaris = db.getStatement().executeUpdate(sql);
-                if ( intBaris > 0 ) {
-                    System.out.println("Penambahan Data berhasil");
-                }
-                else {
-                    System.out.println("Penambahan Data gagal");
-                }  
+                    
+            // Jika update berhasil 
+            if ( intBaris > 0 ) {
+                System.out.println("Penambahan Data berhasil");
+            }
+            else {
+                System.out.println("Penambahan Data gagal");
+            }  
                 
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
+            menuBaju();
         }
-        catch(IOException | NumberFormatException | SQLException e) {
+        catch(SQLIntegrityConstraintViolationException e) { // Jika kode baju sudah ada 
+            try {
+                System.out.println("Kode baju " + kode_baju + " sudah ada");
+                System.out.print("Silahkan masukkan kode baju lain!");
+                input.readLine();
+                menuBaju();
+            }
+            catch(IOException err) {
+                err.printStackTrace();
+            }
+        } catch(NumberFormatException e) {
+            try {
+                System.out.println("Stok dan harga harus berupa angka!");
+                input.readLine();
+            } catch (IOException err) {
+                err.printStackTrace();
+            } 
+        } catch(Exception e) {
             System.out.println(e);
         }
     }
@@ -134,7 +154,7 @@ public class Baju{
             input.readLine();
         }
         catch(Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
     }
     
@@ -156,7 +176,7 @@ public class Baju{
             System.out.print("| Edit Nama Baju : ");
             nama_baju = input.readLine().trim();
             
-            System.out.print("| Edit Jumlah    : ");
+            System.out.print("| Edit Stok    : ");
             stok_baju = Integer.parseInt(input.readLine());
             
             System.out.print("| Edit Harga \t: ");
@@ -165,27 +185,49 @@ public class Baju{
             // query update
             String sql = "UPDATE baju SET nama_baju='%s', stok_baju=%d, harga=%d WHERE kode_baju='%s'";
             sql = String.format(sql, nama_baju, stok_baju, harga, kode_baju);
+            
+            int hasil = db.getStatement().executeUpdate(sql);
+            
+            String get_kode_baju = String.format("SELECT kode_baju FROM baju where kode_baju = '%s'", kode_baju);
+            rs = db.getStatement().executeQuery(get_kode_baju);
 
-            // update data baju
-            db.getStatement().execute(sql);
+            // Jika berhasil diubah dan kode baju ada
+            if ((hasil > 0) && (rs.next() == true)) {
+                System.out.println("\nData berhasil diubah");
+            } else if((hasil == 0) && (rs.next() == false)) { // Jika gagal diubah dan kode baju tidak ada
+                System.out.println("\nKode baju " + kode_baju + " tidak ditemukan!");
+                System.out.println("Data gagal diubah");
+            }
             
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
         } 
-        catch (IOException | NumberFormatException | SQLException e) 
+        catch (NumberFormatException e) // Menangkap error masukkan jumlah dan harga
         {
+            try {
+                System.out.println("Stok dan harga harus berupa angka!");
+                System.out.print("Tekan enter untuk kembali");
+                input.readLine();
+                menuBaju();
+            }
+            catch(IOException err) {
+                err.printStackTrace();
+            }   
+        }
+        catch (Exception e) {
             System.out.println(e);
         }
     }
     
     public void menuCariBaju() {
         System.out.format("======================================%n");
-        System.out.format("|         TAMBAH DATA PELANGGAN       |%n");
+        System.out.format("|             CARI DATA BAJU          |%n");
         System.out.format("+=====================================+%n");
         System.out.println("| 1. Cari Baju berdasarkan Kode      |");
         System.out.println("| 2. Cari Baju berdasarkan Nama      |");
         System.out.println("| 3. Cari Baju stok lebih dari       |");
         System.out.println("| 4. Cari Baju stok kurang dari      |");
+        System.out.println("| 5. Kembali                         |");
         System.out.println("| 0. Keluar                          |");
         System.out.format("=====================================%n");
         System.out.println("");
@@ -209,6 +251,9 @@ public class Baju{
                     break;
                 case 4:
                     cariDataStokBajuKurang();
+                    break;
+                case 5:
+                    menuBaju();
                     break;
                 default:
                     System.out.println("Pilihan Salah");
@@ -252,11 +297,15 @@ public class Baju{
             }
             System.out.format("+=============+=====================+========+===============+%n");
             
-            System.out.print("Tekan enter untuk kembali");
-            input.readLine();
+            if(rs.next() == false ){
+                System.out.println("Data dengan kode baju " + kode_baju +" tidak ada");
+                System.out.print("Tekan enter untuk kembali");
+                input.readLine();
+                menuBaju();
+            }
         }
         catch(Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
     }
     
@@ -292,11 +341,15 @@ public class Baju{
             }
             System.out.format("+=============+=====================+========+===============+%n");
             
-            System.out.print("Tekan enter untuk kembali");
-            input.readLine();
+            if(rs.next() == false ){
+                System.out.println("Data dengan nama baju " + nama_baju +" tidak ada");
+                System.out.print("Tekan enter untuk kembali");
+                input.readLine();
+                menuBaju();
+            }
         }
         catch(Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
     }
     
@@ -332,11 +385,26 @@ public class Baju{
             }
             System.out.format("+=============+=====================+========+===============+%n");
             
-            System.out.print("Tekan enter untuk kembali");
-            input.readLine();
+            if(rs.next() == false ){
+                System.out.println("Data dengan stok baju > " + stok_baju +" tidak ada");
+                System.out.print("Tekan enter untuk kembali");
+                input.readLine();
+                menuBaju();
+            }
+        }
+         catch(NumberFormatException e) {
+            try {
+                System.out.println("Stok dan harga harus berupa angka!");
+                System.out.print("Tekan enter untuk kembali");
+                input.readLine();
+                menuBaju();
+            }
+            catch(IOException err) {
+                System.out.print(e);
+            }
         }
         catch(Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
     }
     
@@ -372,14 +440,28 @@ public class Baju{
             }
             System.out.format("+=============+=====================+========+===============+%n");
             
-            System.out.print("Tekan enter untuk kembali");
-            input.readLine();
+            if(rs.next() == false ){
+                System.out.println("Data dengan stok baju < " + stok_baju +" tidak ada");
+                System.out.print("Tekan enter untuk kembali");
+                input.readLine();
+                menuBaju();
+            }
+        }
+         catch(NumberFormatException e) {
+            try {
+                System.out.println("Stok dan harga harus berupa angka!");
+                System.out.print("Tekan enter untuk kembali");
+                input.readLine();
+                menuBaju();
+            }
+            catch(IOException err) {
+                System.out.print(e);
+            }
         }
         catch(Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
     }
-    
     
     public void hapusDataBaju()
     {   
@@ -411,7 +493,7 @@ public class Baju{
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
         } 
-        catch (IOException | SQLException e)
+        catch (Exception e)
         {
             System.out.println(e);
         }

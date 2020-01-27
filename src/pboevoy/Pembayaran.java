@@ -21,6 +21,17 @@ public class Pembayaran extends ClearScreen{
         System.out.print("|  Masukkan No Sewa   : ");
         String no_sewa = input.readLine();
         
+        //Perintah query ambil kode_sewa
+        String get_no_sewa = String.format("SELECT no_sewa FROM sewa WHERE no_sewa = '%s'", no_sewa);
+        
+        rs = db.getStatement().executeQuery(get_no_sewa);
+        
+        if(rs.next() == false) {
+            System.out.println("\nNo sewa " + no_sewa +" tidak ditemukan");
+            System.out.print("Tekan enter untuk kembali");
+            input.readLine();
+        }
+        
         //Perintah query ambil dp sewa
         String getDP = String.format("SELECT dp_sewa FROM sewa WHERE no_sewa = '%s';", no_sewa);
         

@@ -21,6 +21,7 @@ public class Pelanggan {
         System.out.println("|   3. Ubah Data Pelanggan          |");
         System.out.println("|   4. Cari Data Pelanggan          |");
         System.out.println("|   5. Hapus Data Pelanggan         |");
+        System.out.println("|   6. Kembali                      |");
         System.out.println("|   0. Keluar                       |");
         System.out.format("=====================================%n");
         System.out.println("");
@@ -48,6 +49,7 @@ public class Pelanggan {
                 case 5:
                     hapusDataPelanggan();
                     break;
+                case 6:
                 default:
                     System.out.println("Pilihan salah");
                     break;
@@ -98,7 +100,18 @@ public class Pelanggan {
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
         }
-        catch(IOException | SQLException e) {
+        catch(SQLIntegrityConstraintViolationException e) {
+            try {
+                System.out.println("ID Pelanggan " + id_pelanggan + " sudah ada");
+                System.out.print("Silahkan masukkan ID yang lain!");
+                input.readLine();
+                menuPelanggan();
+            }
+            catch(IOException err) {
+                err.printStackTrace();
+            }
+        }
+        catch(Exception e) {
             System.out.println(e);
         }
     }
@@ -138,8 +151,7 @@ public class Pelanggan {
             System.out.println(e);
         }  
     }
-    
-    
+   
     public void ubahDataPelanggan()
     {
             db.connect();
@@ -152,7 +164,7 @@ public class Pelanggan {
         try 
         {  
             // Input dari user
-            System.out.print("| ID Pelanggan  : ");
+            System.out.print("| ID Pelanggan Yang Di Edit : ");
             id_pelanggan = input.readLine();
 
             System.out.print("| Edit Nama \t: ");
@@ -173,19 +185,23 @@ public class Pelanggan {
 
             // Menyimpan nilai hasil queri
             int hasil = db.getStatement().executeUpdate(sql);
+            
+            String get_id_pelanggan = String.format("SELECT id_pelanggan FROM pelanggan where id_pelanggan = '%s'", id_pelanggan);
+            rs = db.getStatement().executeQuery(get_id_pelanggan);
           
             //Jika ada baris yang terpengaruh dari hasil query
-            if (hasil > 0) {
+            if ((hasil > 0) && (rs.next() == true)) {
                 System.out.println("Status : Data berhasil diubah");
             } 
-            else {
+            else if ((hasil == 0) && (rs.next() == false)) {
+                System.out.println("\nID Pelanggan " + id_pelanggan + " tidak ditemukan!");
                 System.out.println("Status : Data gagal diubah");
             }
             
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
         } 
-        catch (IOException | SQLException e) 
+        catch (Exception e) 
         {
             System.out.println(e);
         }
@@ -198,6 +214,7 @@ public class Pelanggan {
         System.out.println("| 1. Cari Pelanggan berdasarkan ID   |");
         System.out.println("| 2. Cari Pelanggan berdasarkan Nama |");
         System.out.println("| 3. Cari Pelanggan berdasarkan Kota |");
+        System.out.println("| 4. Kembali                         |");
         System.out.println("| 0. Keluar                          |");
         System.out.format("=====================================%n");
         System.out.println("");
@@ -218,6 +235,9 @@ public class Pelanggan {
                     break;
                 case 3:
                     cariDataPelangganKota();
+                    break;
+                case 4:
+                    menuPelanggan();
                     break;
                 default:
                     System.out.println("Pilihan Salah");
@@ -261,8 +281,13 @@ public class Pelanggan {
                 System.out.format(tbl, id_pelanggan, nama, alamat, kota, no_tlp);
             }
             System.out.format("+==============+==============+================+==========+==============+%n"); 
-            System.out.print("Tekan enter untuk kembali");
-            input.readLine();
+           
+            if(rs.next() == false ){
+                System.out.println("Data dengan ID Pelanggan " + id_pelanggan +" tidak ada");
+                System.out.print("Tekan enter untuk kembali");
+                input.readLine();
+                menuPelanggan();
+            }
         }
         catch(Exception e) {
             System.out.println(e);
@@ -299,8 +324,13 @@ public class Pelanggan {
                 System.out.format(tbl, id_pelanggan, nama, alamat, kota, no_tlp);
             }
             System.out.format("+==============+==============+================+==========+==============+%n"); 
-            System.out.print("Tekan enter untuk kembali");
-            input.readLine();
+           
+            if(rs.next() == false ){
+                System.out.println("Data dengan Nama Pelanggan " + nama +" tidak ada");
+                System.out.print("Tekan enter untuk kembali");
+                input.readLine();
+                menuPelanggan();
+            }
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -339,8 +369,13 @@ public class Pelanggan {
                 System.out.format(tbl, id_pelanggan, nama, alamat, kota, no_tlp);
             }
             System.out.format("+==============+==============+================+==========+==============+%n"); 
-            System.out.print("Tekan enter untuk kembali");
-            input.readLine();
+            
+            if(rs.next() == false ){
+                System.out.println("Data Pelanggan dengan kota " + kota +" tidak ada");
+                System.out.print("Tekan enter untuk kembali");
+                input.readLine();
+                menuPelanggan();
+            }
         }
         catch(Exception e) {
             System.out.println(e);

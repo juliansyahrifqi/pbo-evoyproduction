@@ -48,20 +48,25 @@ public class EvoyProduction  {
                         pelanggan.menuPelanggan();
                         break;
                     case 2:
+                        cls.clrscr();
                         baju.menuBaju();
                         break;
                     case 3:
+                        cls.clrscr();
                         sewa.menuDataSewa();
                         break;
                     case 4:
+                        cls.clrscr();
                         penyewaan.sewa_baju();
                         break;
                     case 5:
+                        cls.clrscr();
                         pembayaran.bayar_sewa();
                         break;
                     default:
                         System.out.println("Pilihan salah");
-                        //clrscr();
+                        System.out.print("Tekan enter untuk kembali");
+                        input.readLine();
                 }        
             }        
             db.closeConnection();

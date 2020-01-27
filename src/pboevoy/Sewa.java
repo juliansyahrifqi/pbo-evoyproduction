@@ -19,6 +19,7 @@ public class Sewa {
         System.out.println("|   1. Tampil Data Sewa             |");
         System.out.println("|   2. Ubah Data Sewa               |");
         System.out.println("|   3. Cari Data Sewa               |");
+        System.out.println("|   4. Kembali                      |");
         System.out.println("|   0. Keluar                       |");
         System.out.format("=====================================%n");
         System.out.println("");
@@ -40,6 +41,7 @@ public class Sewa {
                 case 3:
                     menuCariSewa();
                     break;
+                case 4:
                 default:
                     System.out.println("Pilihan salah");
                     break;
@@ -82,10 +84,11 @@ public class Sewa {
     
     public void menuTampilSewa() {
         System.out.format("==========================================%n");
-        System.out.format("|         TAMPIL DATA PELANGGAN          |%n");
+        System.out.format("|            TAMPIL DATA SEWA            |%n");
         System.out.format("+========================================+%n");
         System.out.println("| 1. Tampil Semua Data Sewa             |");
         System.out.println("| 2. Tampil Data Sewa Yang Belum Lunas  |");
+        System.out.println("| 3. Kembali                            |");
         System.out.println("| 0. Keluar                             |");
         System.out.format("=========================================%n");
         System.out.println("");
@@ -103,6 +106,9 @@ public class Sewa {
                     break;
                 case 2:
                     tampilSewaBelumLunas();
+                    break;
+                case 3:
+                    menuDataSewa();
                     break;
                 default:
                     System.out.println("Pilihan Salah");
@@ -164,7 +170,8 @@ public class Sewa {
         System.out.format("+========================================+%n");
         System.out.println("| 1. Cari Data Dengan Nomor Sewa        |");
         System.out.println("| 2. Cari Data Dengan Nama Penyewa      |");
-        System.out.println("| 2. Cari Data Dengan Nama Baju         |");
+        System.out.println("| 3. Cari Data Dengan Nama Baju         |");
+        System.out.println("| 4. Kembali                            |");
         System.out.println("| 0. Keluar                             |");
         System.out.format("=========================================%n");
         System.out.println("");
@@ -181,10 +188,13 @@ public class Sewa {
                     cariDataNomorSewa();
                     break;
                 case 2:
-                    cariDataNamaPenyewa();
+                    cariDataNamaPelanggan();
                     break;
                 case 3:
                     cariDataNamaBaju();
+                    break;
+                case 4: 
+                    menuDataSewa();
                     break;
                 default:
                     System.out.println("Pilihan Salah");
@@ -195,8 +205,104 @@ public class Sewa {
             System.out.println(e);
         }
     }
+    
+    public void cariDataNomorSewa() 
+    {
+        try 
+        {
+            db.connect();
+            cls.clrscr(); //Method clear screen
+            
+            System.out.print("Masukkan nomor sewa (S??) :");
+            no_sewa = input.readLine();
+            
+            String sql = String.format("SELECT detail_sewa.`no_sewa`, pelanggan.`nama`, baju.`nama_baju`, detail_sewa.`qty`, sewa.`tgl_sewa`, sewa.`tgl_kembali`, "
+                    + "sewa.`dp_sewa`, sewa.`total_bayar`, sewa.`status` FROM detail_sewa "
+                    + "INNER JOIN sewa ON detail_sewa.`no_sewa` = sewa.`no_sewa` "
+                    + "INNER JOIN pelanggan ON sewa.`id_pelanggan` = pelanggan.`id_pelanggan` "
+                    + "INNER JOIN baju ON detail_sewa.`kode_baju` = baju.`kode_baju` WHERE detail_sewa.`no_sewa` ='%s' "
+                    + "ORDER BY no_sewa", no_sewa);
+            
+            rs = db.getStatement().executeQuery(sql);
+            
+            eksekusiQuery();
+            if(rs.next() == false ){
+                System.out.println("Data dengan no sewa " + no_sewa +" tidak ada");
+                System.out.print("Tekan enter untuk kembali");
+                input.readLine();
+                menuCariSewa();
+            }
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+    }
+        
+    public void cariDataNamaPelanggan() 
+    {
+        try 
+        {
+            db.connect();
+            cls.clrscr(); //Method clear screen
+            
+            System.out.print("Masukkan nama penyewa :");
+            nama_pelanggan = input.readLine();
+            
+            String sql = String.format("SELECT detail_sewa.`no_sewa`, pelanggan.`nama`, baju.`nama_baju`, detail_sewa.`qty`, sewa.`tgl_sewa`, sewa.`tgl_kembali`, "
+                    + "sewa.`dp_sewa`, sewa.`total_bayar`, sewa.`status` FROM pelanggan "
+                    + "INNER JOIN sewa ON pelanggan.`id_pelanggan` = sewa.`id_pelanggan` "
+                    + "INNER JOIN detail_sewa ON sewa.`no_sewa` = detail_sewa.`no_sewa` "
+                    + "INNER JOIN baju ON detail_sewa.`kode_baju` = baju.`kode_baju` WHERE pelanggan.`nama` ='%s' "
+                    + "ORDER BY no_sewa", nama_pelanggan);
+            
+            rs = db.getStatement().executeQuery(sql);
+            
+            eksekusiQuery();
+            if(rs.next() == false ){
+                System.out.println("Data dengan nama pelanggan " + nama_pelanggan +" tidak ada");
+                System.out.print("Tekan enter untuk kembali");
+                input.readLine();
+                menuCariSewa();
+            }
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void cariDataNamaBaju() 
+    {
+        try 
+        {
+            db.connect();
+            cls.clrscr(); //Method clear screen
+            
+            System.out.print("Masukkan nama baju :");
+            nama_baju = input.readLine();
+            
+            String sql = String.format("SELECT detail_sewa.`no_sewa`, pelanggan.`nama`, baju.`nama_baju`, detail_sewa.`qty`, sewa.`tgl_sewa`, sewa.`tgl_kembali`, "
+                    + "sewa.`dp_sewa`, sewa.`total_bayar`, sewa.`status` FROM baju "
+                    + "INNER JOIN detail_sewa ON baju.`kode_baju` = detail_sewa.`kode_baju` "
+                    + "INNER JOIN sewa ON detail_sewa.`no_sewa` = sewa.`no_sewa` "
+                    + "INNER JOIN pelanggan ON sewa.`id_pelanggan` = pelanggan.`id_pelanggan` WHERE baju.`nama_baju` ='%s' "
+                    + "ORDER BY no_sewa", nama_baju);
+            
+            rs = db.getStatement().executeQuery(sql);
+            
+            eksekusiQuery();
+            if(rs.next() == false ){
+                System.out.println("Data dengan nama baju " + nama_baju +" tidak ada");
+                System.out.print("Tekan enter untuk kembali");
+                input.readLine();
+                menuCariSewa();
+            }
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+    }
    
-    public void menuUbahSewa() {
+    public void menuUbahSewa() {   
         System.out.format("==========================================%n");
         System.out.format("|         TAMPIL DATA PELANGGAN          |%n");
         System.out.format("+========================================+%n");
@@ -204,6 +310,7 @@ public class Sewa {
         System.out.println("| 2. Edit Data DP Sewa                  |");
         System.out.println("| 3. Edit Data Status Sewa              |");
         System.out.println("| 4. Edit Semua Data  Sewa              |");
+        System.out.println("| 5. Kembali                            |");
         System.out.println("| 0. Keluar                             |");
         System.out.format("=========================================%n");
         System.out.println("");
@@ -226,7 +333,10 @@ public class Sewa {
                     ubahDataStatusSewa();
                     break;
                 case 4:
-                    ubahDataSewa();
+                    ubahSemuaDataSewa();
+                    break;
+                case 5:
+                    menuDataSewa();
                     break;
                 default:
                     System.out.println("Pilihan Salah");
@@ -265,12 +375,16 @@ public class Sewa {
 
             // Menyimpan nilai hasil queri
             int hasil = db.getStatement().executeUpdate(sql);
+            
+            String get_id_pelanggan = String.format("SELECT no_sewa FROM sewa where no_sewa = '%s'", no_sewa);
+            rs = db.getStatement().executeQuery(get_id_pelanggan);
           
             //Jika ada baris yang terpengaruh dari hasil query
-            if (hasil > 0) {
+            if ((hasil > 0) && (rs.next() == true)) {
                 System.out.println("Status : Data berhasil diubah");
             } 
-            else {
+            else if ((hasil == 0) && (rs.next() == false)) {
+                System.out.println("\nNo Sewa " + no_sewa + " tidak ditemukan!");
                 System.out.println("Status : Data gagal diubah");
             }
             
@@ -309,11 +423,15 @@ public class Sewa {
             // Menyimpan nilai hasil queri
             int hasil = db.getStatement().executeUpdate(sql);
           
+            String get_id_pelanggan = String.format("SELECT no_sewa FROM sewa where no_sewa = '%s'", no_sewa);
+            rs = db.getStatement().executeQuery(get_id_pelanggan);
+          
             //Jika ada baris yang terpengaruh dari hasil query
-            if (hasil > 0) {
+            if ((hasil > 0) && (rs.next() == true)) {
                 System.out.println("Status : Data berhasil diubah");
             } 
-            else {
+            else if ((hasil == 0) && (rs.next() == false)) {
+                System.out.println("\nNo Sewa " + no_sewa + " tidak ditemukan!");
                 System.out.println("Status : Data gagal diubah");
             }
             
@@ -351,11 +469,15 @@ public class Sewa {
             // Menyimpan nilai hasil queri
             int hasil = db.getStatement().executeUpdate(sql);
           
+            String get_id_pelanggan = String.format("SELECT no_sewa FROM sewa where no_sewa = '%s'", no_sewa);
+            rs = db.getStatement().executeQuery(get_id_pelanggan);
+          
             //Jika ada baris yang terpengaruh dari hasil query
-            if (hasil > 0) {
+            if ((hasil > 0) && (rs.next() == true)) {
                 System.out.println("Status : Data berhasil diubah");
             } 
-            else {
+            else if ((hasil == 0) && (rs.next() == false)) {
+                System.out.println("\nNo Sewa " + no_sewa + " tidak ditemukan!");
                 System.out.println("Status : Data gagal diubah");
             }
             
@@ -368,7 +490,7 @@ public class Sewa {
         }
     }
      
-    public void ubahDataSewa()
+    public void ubahSemuaDataSewa()
     {
             db.connect();
             cls.clrscr(); //Method clear screen
@@ -402,11 +524,15 @@ public class Sewa {
             // Menyimpan nilai hasil queri
             int hasil = db.getStatement().executeUpdate(sql);
           
+            String get_id_pelanggan = String.format("SELECT no_sewa FROM sewa where no_sewa = '%s'", no_sewa);
+            rs = db.getStatement().executeQuery(get_id_pelanggan);
+          
             //Jika ada baris yang terpengaruh dari hasil query
-            if (hasil > 0) {
+            if ((hasil > 0) && (rs.next() == true)) {
                 System.out.println("Status : Data berhasil diubah");
             } 
-            else {
+            else if ((hasil == 0) && (rs.next() == false)) {
+                System.out.println("\nNo Sewa " + no_sewa + " tidak ditemukan!");
                 System.out.println("Status : Data gagal diubah");
             }
             
@@ -417,135 +543,5 @@ public class Sewa {
         {
             System.out.println(e);
         }
-    }
-    
-    public void menuSewa() {
-        System.out.format("=====================================%n");
-        System.out.format("|          SEWA BAJU ADAT           |%n");
-        System.out.format("|         EVOY PRODUCTION           |%n");
-        System.out.format("=====================================%n");
-        System.out.println("|   1. Tampilkan Data Sewa          |");
-        System.out.println("|   2. Ubah Data Sewa               |");
-        System.out.println("|   3. Cari Data Sewa               |");          
-        System.out.println("|   4. Hapus Data Pelanggan         |");
-        System.out.println("|   0. Keluar                       |");
-        System.out.format("=====================================%n");
-        System.out.println("");
-        System.out.print("Pilihan Anda : ");
-        
-        try {
-            int pilihan = Integer.parseInt(input.readLine());
-         
-            switch(pilihan) {
-                case 0:
-                    System.exit(0);
-                    break;
-                case 1: 
-                    //;
-                    break;
-                case 2:
-                    //;
-                    break;
-                case 3:
-                    //;
-                    break;
-                case 4:
-                    //menuCariPelanggan();
-                    break;
-                case 5:
-                    //hapusDataPelanggan();
-                    break;
-                default:
-                    System.out.println("Pilihan salah");
-                    break;
-            }
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public void cariDataNomorSewa() 
-    {
-        try 
-        {
-            db.connect();
-            cls.clrscr(); //Method clear screen
-            
-            System.out.print("Masukkan nomor sewa (S??) :");
-            no_sewa = input.readLine();
-            
-            String sql = String.format("SELECT detail_sewa.`no_sewa`, pelanggan.`nama`, baju.`nama_baju`, detail_sewa.`qty`, sewa.`tgl_sewa`, sewa.`tgl_kembali`, "
-                    + "sewa.`dp_sewa`, sewa.`total_bayar`, sewa.`status` FROM detail_sewa "
-                    + "INNER JOIN sewa ON detail_sewa.`no_sewa` = sewa.`no_sewa` "
-                    + "INNER JOIN pelanggan ON sewa.`id_pelanggan` = pelanggan.`id_pelanggan` "
-                    + "INNER JOIN baju ON detail_sewa.`kode_baju` = baju.`kode_baju` WHERE detail_sewa.`no_sewa` ='%s' "
-                    + "ORDER BY no_sewa", no_sewa);
-            
-            rs = db.getStatement().executeQuery(sql);
-            
-            eksekusiQuery();
-            System.out.print("Tekan enter untuk kembali");
-            input.readLine();
-        }
-        catch(Exception e) {
-            System.out.println(e);
-        }
-    }
-        
-    public void cariDataNamaPenyewa() 
-    {
-        try 
-        {
-            db.connect();
-            cls.clrscr(); //Method clear screen
-            
-            System.out.print("Masukkan nama penyewa :");
-            nama_pelanggan = input.readLine();
-            
-            String sql = String.format("SELECT detail_sewa.`no_sewa`, pelanggan.`nama`, baju.`nama_baju`, detail_sewa.`qty`, sewa.`tgl_sewa`, sewa.`tgl_kembali`, "
-                    + "sewa.`dp_sewa`, sewa.`total_bayar`, sewa.`status` FROM pelanggan "
-                    + "INNER JOIN sewa ON pelanggan.`id_pelanggan` = sewa.`id_pelanggan` "
-                    + "INNER JOIN detail_sewa ON sewa.`no_sewa` = detail_sewa.`no_sewa` "
-                    + "INNER JOIN baju ON detail_sewa.`kode_baju` = baju.`kode_baju` WHERE pelanggan.`nama` ='%s' "
-                    + "ORDER BY no_sewa", nama_pelanggan);
-            
-            rs = db.getStatement().executeQuery(sql);
-            
-            eksekusiQuery();
-            System.out.print("Tekan enter untuk kembali");
-            input.readLine();
-        }
-        catch(Exception e) {
-            System.out.println(e);
-        }
-    }
-    
-    public void cariDataNamaBaju() 
-    {
-        try 
-        {
-            db.connect();
-            cls.clrscr(); //Method clear screen
-            
-            System.out.print("Masukkan nama baju :");
-            nama_baju = input.readLine();
-            
-            String sql = String.format("SELECT detail_sewa.`no_sewa`, pelanggan.`nama`, baju.`nama_baju`, detail_sewa.`qty`, sewa.`tgl_sewa`, sewa.`tgl_kembali`, "
-                    + "sewa.`dp_sewa`, sewa.`total_bayar`, sewa.`status` FROM baju "
-                    + "INNER JOIN detail_sewa ON baju.`kode_baju` = detail_sewa.`kode_baju` "
-                    + "INNER JOIN sewa ON detail_sewa.`no_sewa` = sewa.`no_sewa` "
-                    + "INNER JOIN pelanggan ON sewa.`id_pelanggan` = pelanggan.`id_pelanggan` WHERE baju.`nama_baju` ='%s' "
-                    + "ORDER BY no_sewa", nama_baju);
-            
-            rs = db.getStatement().executeQuery(sql);
-            
-            eksekusiQuery();
-            System.out.print("Tekan enter untuk kembali");
-            input.readLine();
-        }
-        catch(Exception e) {
-            System.out.println(e);
-        }
-    }
+    } 
 }
