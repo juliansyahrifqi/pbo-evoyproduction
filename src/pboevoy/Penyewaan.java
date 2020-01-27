@@ -17,7 +17,7 @@ public class Penyewaan {
             db.connect();
             
             System.out.format("================================================%n");
-            System.out.format("|              TAMBAH DATA PELANGGAN           |%n");
+            System.out.format("|            SEWA BAJU EVOY PRODUCTION         |%n");
             System.out.format("+==============================================+%n");
 
             System.out.print("|  No Sewa \t\t   : ");
@@ -132,10 +132,6 @@ public class Penyewaan {
         catch(Exception e) {
             System.out.println(e);
         }
-        
-    }
-    
-    public void tampilSewa() {
         
     }
 }

@@ -3,8 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/pbo-evoyproduction/src/pboevoy/Sewa.java</file>
             <file>file:/D:/pbo-evoyproduction/src/pboevoy/Penyewaan.java</file>
+=======
+            <file>file:/D:/pbo-evoyproduction/src/pboevoy/Pelanggan.java</file>
+            <file>file:/D:/pbo-evoyproduction/src/pboevoy/EvoyProduction.java</file>
+>>>>>>> 02227aa242ebc76148e5c530eeb7a06b26dc9a4a
         </group>
     </open-files>
 </project-private>
