@@ -51,6 +51,36 @@ public class Sewa {
         }
     }
     
+    public void eksekusiQuery() {
+        try {
+            String tbl ="| %-3s | %-13s | %-15s | %-3d | %-10s | %-6d | %-6d | %-10s |%n";
+
+            System.out.format("==========================================================================================+%n");
+            System.out.format("|                                 Data Sewa Evoy Production                                |%n");
+            System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
+            System.out.format("|  No |     Nama      |       Baju      | Qty |  Tgl Sewa  |   DP   |  Total |   Status    |%n");
+            System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
+
+            while(rs.next()) {
+
+               String no_sewa = rs.getString("no_sewa");
+               String nama_pelanggan = rs.getString("nama");
+               String nama_baju = rs.getString("nama_baju");
+               int qty = rs.getInt("qty");
+               String tgl_sewa = rs.getString("tgl_sewa");
+               int dp_sewa = rs.getInt("dp_sewa");
+               int total_bayar = rs.getInt("total_bayar");
+               String status = rs.getString("status");
+
+               System.out.format(tbl, no_sewa, nama_pelanggan, nama_baju, qty, tgl_sewa, dp_sewa, total_bayar, status);
+            }
+            System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+       }
+    
     public void menuTampilSewa() {
         System.out.format("==========================================%n");
         System.out.format("|         TAMPIL DATA PELANGGAN          |%n");
@@ -98,28 +128,7 @@ public class Sewa {
                     + "ORDER BY no_sewa";
             rs = db.getStatement().executeQuery(sql);
 
-            String tbl ="| %-3s | %-13s | %-15s | %-3d | %-10s | %-6d | %-6d | %-10s |%n";
-
-            System.out.format("==========================================================================================+%n");
-            System.out.format("|                                 Data Sewa Evoy Production                                |%n");
-            System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
-            System.out.format("|  No |     Nama      |       Baju      | Qty |  Tgl Sewa  |   DP   |  Total |   Status    |%n");
-            System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
-
-            while(rs.next()) {
-
-               String no_sewa = rs.getString("no_sewa");
-               String nama_pelanggan = rs.getString("nama");
-               String nama_baju = rs.getString("nama_baju");
-               int qty = rs.getInt("qty");
-               String tgl_sewa = rs.getString("tgl_sewa");
-               int dp_sewa = rs.getInt("dp_sewa");
-               int total_bayar = rs.getInt("total_bayar");
-               String status = rs.getString("status");
-
-               System.out.format(tbl, no_sewa, nama_pelanggan, nama_baju, qty, tgl_sewa, dp_sewa, total_bayar, status);
-            }
-            System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
+            eksekusiQuery();
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
         }
@@ -141,28 +150,7 @@ public class Sewa {
                     + "ORDER BY no_sewa";
             rs = db.getStatement().executeQuery(sql);
 
-            String tbl ="| %-3s | %-13s | %-15s | %-3d | %-10s | %-6d | %-6d | %-10s |%n";
-
-            System.out.format("==========================================================================================+%n");
-            System.out.format("|                                 Data Sewa Evoy Production                                |%n");
-            System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
-            System.out.format("|  No |     Nama      |       Baju      | Qty |  Tgl Sewa  |   DP   |  Total |   Status    |%n");
-            System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
-
-            while(rs.next()) {
-
-               String no_sewa = rs.getString("no_sewa");
-               String nama_pelanggan = rs.getString("nama");
-               String nama_baju = rs.getString("nama_baju");
-               int qty = rs.getInt("qty");
-               String tgl_sewa = rs.getString("tgl_sewa");
-               int dp_sewa = rs.getInt("dp_sewa");
-               int total_bayar = rs.getInt("total_bayar");
-               String status = rs.getString("status");
-
-               System.out.format(tbl, no_sewa, nama_pelanggan, nama_baju, qty, tgl_sewa, dp_sewa, total_bayar, status);
-            }
-            System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
+            eksekusiQuery();
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
         }
@@ -451,28 +439,7 @@ public class Sewa {
             
             rs = db.getStatement().executeQuery(sql);
             
-            String tbl ="| %-3s | %-13s | %-15s | %-3d | %-10s | %-6d | %-6d | %-10s |%n";
-
-            System.out.format("==========================================================================================+%n");
-            System.out.format("|                                 Data Sewa Evoy Production                                |%n");
-            System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
-            System.out.format("|  No |     Nama      |       Baju      | Qty |  Tgl Sewa  |   DP   |  Total |   Status    |%n");
-            System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
-
-            while(rs.next()) {
-
-               String no_sewa = rs.getString("no_sewa");
-               String nama_pelanggan = rs.getString("nama");
-               String nama_baju = rs.getString("nama_baju");
-               int qty = rs.getInt("qty");
-               String tgl_sewa = rs.getString("tgl_sewa");
-               int dp_sewa = rs.getInt("dp_sewa");
-               int total_bayar = rs.getInt("total_bayar");
-               String status = rs.getString("status");
-
-               System.out.format(tbl, no_sewa, nama_pelanggan, nama_baju, qty, tgl_sewa, dp_sewa, total_bayar, status);
-            }
-            System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
+            eksekusiQuery();
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
         }
@@ -499,28 +466,7 @@ public class Sewa {
             
             rs = db.getStatement().executeQuery(sql);
             
-            String tbl ="| %-3s | %-13s | %-15s | %-3d | %-10s | %-6d | %-6d | %-10s |%n";
-
-            System.out.format("==========================================================================================+%n");
-            System.out.format("|                                 Data Sewa Evoy Production                                |%n");
-            System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
-            System.out.format("|  No |     Nama      |       Baju      | Qty |  Tgl Sewa  |   DP   |  Total |   Status    |%n");
-            System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
-
-            while(rs.next()) {
-
-               String no_sewa = rs.getString("no_sewa");
-               String nama_pelanggan = rs.getString("nama");
-               String nama_baju = rs.getString("nama_baju");
-               int qty = rs.getInt("qty");
-               String tgl_sewa = rs.getString("tgl_sewa");
-               int dp_sewa = rs.getInt("dp_sewa");
-               int total_bayar = rs.getInt("total_bayar");
-               String status = rs.getString("status");
-
-               System.out.format(tbl, no_sewa, nama_pelanggan, nama_baju, qty, tgl_sewa, dp_sewa, total_bayar, status);
-            }
-            System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
+            eksekusiQuery();
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
         }
@@ -547,28 +493,7 @@ public class Sewa {
             
             rs = db.getStatement().executeQuery(sql);
             
-            String tbl ="| %-3s | %-13s | %-15s | %-3d | %-10s | %-6d | %-6d | %-10s |%n";
-
-            System.out.format("==========================================================================================+%n");
-            System.out.format("|                                 Data Sewa Evoy Production                                |%n");
-            System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
-            System.out.format("|  No |     Nama      |       Baju      | Qty |  Tgl Sewa  |   DP   |  Total |   Status    |%n");
-            System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
-
-            while(rs.next()) {
-
-               String no_sewa = rs.getString("no_sewa");
-               String nama_pelanggan = rs.getString("nama");
-               String nama_baju = rs.getString("nama_baju");
-               int qty = rs.getInt("qty");
-               String tgl_sewa = rs.getString("tgl_sewa");
-               int dp_sewa = rs.getInt("dp_sewa");
-               int total_bayar = rs.getInt("total_bayar");
-               String status = rs.getString("status");
-
-               System.out.format(tbl, no_sewa, nama_pelanggan, nama_baju, qty, tgl_sewa, dp_sewa, total_bayar, status);
-            }
-            System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
+            eksekusiQuery();
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
         }
@@ -576,7 +501,4 @@ public class Sewa {
             System.out.println(e);
         }
     }
-    
-
-    
 }
