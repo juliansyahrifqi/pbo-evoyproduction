@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> 02227aa242ebc76148e5c530eeb7a06b26dc9a4a
 package pboevoy;
 
 import java.io.*;
@@ -12,7 +8,7 @@ public class Sewa {
     ConnectDB db = new ConnectDB("root", "");
     BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
     ClearScreen cls = new ClearScreen();
-    String no_sewa, nama_baju, nama, tgl_sewa, tgl_kembali, status;
+    String no_sewa, nama_baju, nama_pelanggan, tgl_sewa, tgl_kembali, status;
     int qty, jml_hari, denda, total_bayar, dp_sewa;
     
     public void menuDataSewa() {
@@ -66,23 +62,23 @@ public class Sewa {
 
             while(rs.next()) {
 
-               String no_sewa = rs.getString("no_sewa");
-               String nama_pelanggan = rs.getString("nama");
-               String nama_baju = rs.getString("nama_baju");
-               int qty = rs.getInt("qty");
-               String tgl_sewa = rs.getString("tgl_sewa");
-               int dp_sewa = rs.getInt("dp_sewa");
-               int total_bayar = rs.getInt("total_bayar");
-               String status = rs.getString("status");
+                no_sewa = rs.getString("no_sewa");
+                nama_pelanggan = rs.getString("nama");
+                nama_baju = rs.getString("nama_baju");
+                qty = rs.getInt("qty");
+                tgl_sewa = rs.getString("tgl_sewa");
+                dp_sewa = rs.getInt("dp_sewa");
+                total_bayar = rs.getInt("total_bayar");
+                status = rs.getString("status");
 
-               System.out.format(tbl, no_sewa, nama_pelanggan, nama_baju, qty, tgl_sewa, dp_sewa, total_bayar, status);
+                System.out.format(tbl, no_sewa, nama_pelanggan, nama_baju, qty, tgl_sewa, dp_sewa, total_bayar, status);
             }
             System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
         }
         catch(Exception e) {
             System.out.println(e);
         }
-       }
+    }
     
     public void menuTampilSewa() {
         System.out.format("==========================================%n");
@@ -423,12 +419,6 @@ public class Sewa {
         }
     }
     
-<<<<<<< HEAD
-    ResultSet rs;
-    ConnectDB db = new ConnectDB("root", "");
-    BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-    ClearScreen cls = new ClearScreen();
-    
     public void menuSewa() {
         System.out.format("=====================================%n");
         System.out.format("|          SEWA BAJU ADAT           |%n");
@@ -475,9 +465,6 @@ public class Sewa {
         }
     }
     
-    public void tampilDataSewa() {
-        
-=======
     public void cariDataNomorSewa() 
     {
         try 
@@ -505,7 +492,8 @@ public class Sewa {
             System.out.println(e);
         }
     }
-        public void cariDataNamaPenyewa() 
+        
+    public void cariDataNamaPenyewa() 
     {
         try 
         {
@@ -513,14 +501,14 @@ public class Sewa {
             cls.clrscr(); //Method clear screen
             
             System.out.print("Masukkan nama penyewa :");
-            nama = input.readLine();
+            nama_pelanggan = input.readLine();
             
             String sql = String.format("SELECT detail_sewa.`no_sewa`, pelanggan.`nama`, baju.`nama_baju`, detail_sewa.`qty`, sewa.`tgl_sewa`, sewa.`tgl_kembali`, "
                     + "sewa.`dp_sewa`, sewa.`total_bayar`, sewa.`status` FROM pelanggan "
                     + "INNER JOIN sewa ON pelanggan.`id_pelanggan` = sewa.`id_pelanggan` "
                     + "INNER JOIN detail_sewa ON sewa.`no_sewa` = detail_sewa.`no_sewa` "
                     + "INNER JOIN baju ON detail_sewa.`kode_baju` = baju.`kode_baju` WHERE pelanggan.`nama` ='%s' "
-                    + "ORDER BY no_sewa", nama);
+                    + "ORDER BY no_sewa", nama_pelanggan);
             
             rs = db.getStatement().executeQuery(sql);
             
@@ -532,6 +520,7 @@ public class Sewa {
             System.out.println(e);
         }
     }
+    
     public void cariDataNamaBaju() 
     {
         try 
@@ -558,6 +547,5 @@ public class Sewa {
         catch(Exception e) {
             System.out.println(e);
         }
->>>>>>> 02227aa242ebc76148e5c530eeb7a06b26dc9a4a
     }
 }
