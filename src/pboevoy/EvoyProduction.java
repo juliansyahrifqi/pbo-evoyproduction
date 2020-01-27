@@ -13,7 +13,8 @@ public class EvoyProduction  {
         ClearScreen cls = new ClearScreen();
         Baju baju = new Baju();
         Pelanggan pelanggan = new Pelanggan();
-        Penyewaan sewa = new Penyewaan();
+        Sewa sewa = new Sewa();
+        Penyewaan penyewaan = new Penyewaan();
         Pembayaran pembayaran = new Pembayaran();
         
         db.connect();
@@ -28,7 +29,7 @@ public class EvoyProduction  {
                 System.out.format("=====================================%n");
                 System.out.println("|   1. Data Pelanggan               |");
                 System.out.println("|   2. Data Baju                    |");
-                System.out.println("|   3. Ubah Data                    |");
+                System.out.println("|   3. Data Sewa                    |");
                 System.out.println("|   4. Penyewaan Baju               |");
                 System.out.println("|   5. Pembayaran Sewa              |");
                 System.out.println("|   0. Keluar                       |");
@@ -50,10 +51,10 @@ public class EvoyProduction  {
                         baju.menuBaju();
                         break;
                     case 3:
-                        //menuUbahData();
+                        sewa.menuDataSewa();
                         break;
                     case 4:
-                        sewa.sewa_baju();
+                        penyewaan.sewa_baju();
                         break;
                     case 5:
                         pembayaran.bayar_sewa();
