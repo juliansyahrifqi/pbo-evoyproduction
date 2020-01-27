@@ -112,14 +112,14 @@ public class Pelanggan {
             String sql = "SELECT * FROM pelanggan";
             rs = db.getStatement().executeQuery(sql);
 
-            String tbl ="| %-12s | %-12s | %-14s | %-8s | %-12s | %n";
+            String tbl ="| %-12s | %-12s | %-31s | %-8s | %-13s | %n";
 
-            System.out.format("=========================================================================%n");
-            System.out.format("|                       Data Pelanggan Evoy Production                   |%n");
-            System.out.format("+==============+==============+================+==========+==============+%n");
-            System.out.format("| ID_Pelanggan |     Nama     |     Alamat     |   Kota   |    No. Tlp   |%n");
-            System.out.format("+==============+==============+================+==========+==============+%n");
-
+            System.out.format("==========================================================================================+%n");
+            System.out.format("|                               Data Pelanggan Evoy Production                            |%n");
+            System.out.format("+==============+==============+=================================+==========+===============+%n");
+            System.out.format("| ID_Pelanggan |     Nama     |     \t    Alamat  \t \t|   Kota   |    No. Tlp    |%n");
+            System.out.format("+==============+==============+=================================+==========+===============+%n");
+            
             while(rs.next()) {
 
                id_pelanggan = rs.getString("id_pelanggan");
@@ -130,7 +130,7 @@ public class Pelanggan {
 
                System.out.format(tbl, id_pelanggan, nama, alamat, kota, no_tlp);
             }
-            System.out.format("+==============+==============+================+==========+==============+%n");
+            System.out.format("+==============+==============+==================================+==========+==============+%n");
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
         }
