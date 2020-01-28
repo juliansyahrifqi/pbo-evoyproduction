@@ -278,9 +278,7 @@ public class Pelanggan {
             
             System.out.print("Masukkan ID :");
             id_pelanggan = input.readLine();
-            
-            cls.clrscr();
-            
+              
             String sql = String.format("SELECT * FROM pelanggan WHERE `id_pelanggan` ='%s'", id_pelanggan);
              
             rs = db.getStatement().executeQuery(sql);
@@ -331,9 +329,7 @@ public class Pelanggan {
             
             System.out.print("Masukkan Nama : ");
             nama = input.readLine();
-            
-            cls.clrscr();
-            
+              
             String sql = String.format("SELECT * FROM pelanggan WHERE `nama` ='%s'", nama);
             
             rs = db.getStatement().executeQuery(sql);
@@ -387,9 +383,7 @@ public class Pelanggan {
             
             System.out.print("Masukkan Kota : ");
             kota = input.readLine();
-            
-            cls.clrscr();
-            
+                
             String sql = String.format("SELECT * FROM pelanggan WHERE kota ='%s'", kota);
             
             rs = db.getStatement().executeQuery(sql);

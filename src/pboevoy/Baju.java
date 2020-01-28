@@ -293,7 +293,6 @@ public class Baju{
 
             System.out.print("Cari Kode Baju : ");
             kode_baju = input.readLine();
-            cls.clrscr();
             
             String sql = String.format("SELECT * FROM baju WHERE kode_baju = '%s';", kode_baju);
             
@@ -346,7 +345,6 @@ public class Baju{
 
             System.out.print("Cari Nama Baju : ");
             nama_baju = input.readLine();
-            cls.clrscr();
             
             String sql = String.format("SELECT * FROM baju WHERE nama_baju = '%s';", nama_baju);
             
@@ -400,7 +398,6 @@ public class Baju{
 
             System.out.print("Cari Stok Baju (>=): ");
             stok_baju = Integer.parseInt(input.readLine());
-            cls.clrscr();
             
             String sql = String.format("SELECT * FROM baju WHERE stok_baju >= '%d';", stok_baju);
             
@@ -465,7 +462,6 @@ public class Baju{
 
             System.out.print("Cari Stok Baju (<): ");
             stok_baju = Integer.parseInt(input.readLine());
-            cls.clrscr();
             
             String sql = String.format("SELECT * FROM baju WHERE stok_baju < '%d';", stok_baju);
             
