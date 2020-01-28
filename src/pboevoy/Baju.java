@@ -113,7 +113,7 @@ public class Baju{
             }
         } catch(NumberFormatException e) {
             try {
-                System.err.println("Stok dan harga harus berupa angka!");
+                System.err.println("\nStok dan harga harus berupa angka!");
                 input.readLine();
             } catch (IOException err) {
                 err.printStackTrace();
@@ -223,6 +223,7 @@ public class Baju{
     }
     
     public void menuCariBaju() {
+        cls.clrscr();
         System.out.format("======================================%n");
         System.out.format("|             CARI DATA BAJU          |%n");
         System.out.format("+=====================================+%n");
@@ -244,19 +245,15 @@ public class Baju{
                     System.exit(0);
                     break;
                 case 1: 
-                    cls.clrscr();
                     cariDataKodeBaju();
                     break;
                 case 2:
-                    cls.clrscr();
                     cariDataNamaBaju();
                     break;
                 case 3:
-                    cls.clrscr();
                     cariDataStokBajuLebih();
                     break;
                 case 4:
-                    cls.clrscr();
                     cariDataStokBajuKurang();
                     break;
                 case 5:
@@ -508,9 +505,9 @@ public class Baju{
             int hasil = db.getStatement().executeUpdate(sql);
             
             if(hasil > 0) {
-                System.out.println("Data berhasil dihapus");
+                System.out.println("\nData berhasil dihapus");
             } else {
-                System.err.println("Data gagal dihapus");
+                System.err.println("\nData gagal dihapus");
             }
           
             System.out.print("Tekan enter untuk kembali");

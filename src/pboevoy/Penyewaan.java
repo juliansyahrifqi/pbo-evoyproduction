@@ -87,14 +87,11 @@ public class Penyewaan {
                 switch(daftar) {
                     case 'y': 
                         pelanggan.tambahDataPelanggan();
-                    break;
-                    
+                    break;     
                     case 'n':
-                        System.exit(0);
                     break;
-                       
                     default:
-                        System.out.println("Masukkan salah");
+                        System.err.println("Masukkan salah");
                     break;
                 }
             }
@@ -134,7 +131,7 @@ public class Penyewaan {
         }
         catch(NumberFormatException e) {
             try {
-                System.err.println("Jumlah dan DP Sewa harus berupa angka!");
+                System.err.println("\nJumlah dan DP Sewa harus berupa angka!");
                 System.out.print("Tekan enter untuk kembali");
                 input.readLine();
             }

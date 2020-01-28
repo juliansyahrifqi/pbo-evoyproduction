@@ -12,6 +12,7 @@ public class Sewa {
     int qty, jml_hari, denda, total_bayar, dp_sewa;
     
     public void menuDataSewa() {
+        cls.clrscr();
         System.out.format("=====================================%n");
         System.out.format("|          SEWA BAJU ADAT           |%n");
         System.out.format("|         EVOY PRODUCTION           |%n");
@@ -33,15 +34,12 @@ public class Sewa {
                     System.exit(0);
                     break;
                 case 1: 
-                    cls.clrscr();
                     menuTampilSewa();
                     break;
                 case 2:
-                    cls.clrscr();
                     menuUbahSewa();
                     break;
                 case 3:
-                    cls.clrscr();
                     menuCariSewa();
                     break;
                 case 4:
@@ -86,6 +84,7 @@ public class Sewa {
     }
     
     public void menuTampilSewa() {
+        cls.clrscr();
         System.out.format("==========================================%n");
         System.out.format("|            TAMPIL DATA SEWA            |%n");
         System.out.format("+========================================+%n");
@@ -105,15 +104,12 @@ public class Sewa {
                     System.exit(0);
                     break;
                 case 1: 
-                    cls.clrscr();
                     tampilDataSewa();
                     break;
                 case 2:
-                    cls.clrscr();
                     tampilSewaBelumLunas();
                     break;
                 case 3:
-                    cls.clrscr();
                     menuDataSewa();
                     break;
                 default:
@@ -142,6 +138,7 @@ public class Sewa {
             eksekusiQuery();
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
+            menuTampilSewa();
         }
         catch(Exception e) {
             System.err.println(e);
@@ -164,6 +161,7 @@ public class Sewa {
             eksekusiQuery();
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
+            menuTampilSewa();
         }
         catch(Exception e) {
             System.err.println(e);
@@ -171,8 +169,9 @@ public class Sewa {
     } 
     
     public void menuCariSewa() {
+        cls.clrscr();
         System.out.format("==========================================%n");
-        System.out.format("|         TAMPIL DATA PELANGGAN          |%n");
+        System.out.format("|              MENU CARI SEWA            |%n");
         System.out.format("+========================================+%n");
         System.out.println("| 1. Cari Data Dengan Nomor Sewa        |");
         System.out.println("| 2. Cari Data Dengan Nama Penyewa      |");
@@ -260,7 +259,7 @@ public class Sewa {
             cls.clrscr(); //Method clear screen
             
             System.out.format("======================================%n");
-            System.out.format("|          CARI DATA PELANGGAN       |%n");
+            System.out.format("|             CARI DATA SEWA         |%n");
             System.out.format("+====================================+%n");
             
             System.out.print("Masukkan nama penyewa :");
@@ -296,7 +295,7 @@ public class Sewa {
             cls.clrscr(); //Method clear screen
             
             System.out.format("======================================%n");
-            System.out.format("|          CARI DATA PELANGGAN       |%n");
+            System.out.format("|            CARI DATA SEWA          |%n");
             System.out.format("+====================================+%n");
             
             System.out.print("Masukkan nama baju :");
@@ -327,7 +326,7 @@ public class Sewa {
     public void menuUbahSewa() {   
         cls.clrscr();
         System.out.format("==========================================%n");
-        System.out.format("|         TAMPIL DATA PELANGGAN          |%n");
+        System.out.format("|              EDIT DATA SEWA            |%n");
         System.out.format("+========================================+%n");
         System.out.println("| 1. Edit Data Tanggal  Sewa            |");
         System.out.println("| 2. Edit Data DP Sewa                  |");
@@ -347,19 +346,15 @@ public class Sewa {
                     System.exit(0);
                     break;
                 case 1: 
-                    cls.clrscr();
                     ubahDataTanggalSewa();
                     break;
                 case 2:
-                    cls.clrscr();
                     ubahDataDPSewa();
                     break;
                 case 3:
-                    cls.clrscr();
                     ubahDataStatusSewa();
                     break;
                 case 4:
-                    cls.clrscr();
                     ubahSemuaDataSewa();
                     break;
                 case 5:
@@ -417,7 +412,7 @@ public class Sewa {
             
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
-            menuDataSewa();
+            menuUbahSewa();
         } 
         catch (Exception e) 
         {
@@ -465,7 +460,7 @@ public class Sewa {
             
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
-            menuDataSewa();
+            menuUbahSewa();
         } 
         catch (Exception e) 
         {
@@ -512,7 +507,7 @@ public class Sewa {
             
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
-            menuDataSewa();
+            menuUbahSewa();
         } 
         catch (Exception e) 
         {
@@ -568,7 +563,7 @@ public class Sewa {
             
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
-            menuDataSewa();
+            menuUbahSewa();
         } 
         catch (Exception e) 
         {

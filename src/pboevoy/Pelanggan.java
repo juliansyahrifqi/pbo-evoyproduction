@@ -12,6 +12,7 @@ public class Pelanggan {
     String id_pelanggan, nama, alamat, kota, no_tlp;
     
     public void menuPelanggan() {
+        cls.clrscr();
         System.out.format("=====================================%n");
         System.out.format("|          SEWA BAJU ADAT           |%n");
         System.out.format("|         EVOY PRODUCTION           |%n");
@@ -102,7 +103,7 @@ public class Pelanggan {
         }
         catch(SQLIntegrityConstraintViolationException e) {
             try {
-                System.err.println("ID Pelanggan " + id_pelanggan + " sudah ada");
+                System.err.println("\nID Pelanggan " + id_pelanggan + " sudah ada");
                 System.out.print("Silahkan masukkan ID yang lain!");
                 input.readLine();
                 menuPelanggan();
