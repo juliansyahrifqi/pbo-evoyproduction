@@ -279,6 +279,8 @@ public class Pelanggan {
             System.out.print("Masukkan ID :");
             id_pelanggan = input.readLine();
             
+            cls.clrscr();
+            
             String sql = String.format("SELECT * FROM pelanggan WHERE `id_pelanggan` ='%s'", id_pelanggan);
              
             rs = db.getStatement().executeQuery(sql);
@@ -329,6 +331,8 @@ public class Pelanggan {
             
             System.out.print("Masukkan Nama : ");
             nama = input.readLine();
+            
+            cls.clrscr();
             
             String sql = String.format("SELECT * FROM pelanggan WHERE `nama` ='%s'", nama);
             
@@ -383,6 +387,8 @@ public class Pelanggan {
             
             System.out.print("Masukkan Kota : ");
             kota = input.readLine();
+            
+            cls.clrscr();
             
             String sql = String.format("SELECT * FROM pelanggan WHERE kota ='%s'", kota);
             
@@ -446,15 +452,26 @@ public class Pelanggan {
             int hasil = db.getStatement().executeUpdate(sql);
             
             if(hasil > 0) {
-                System.out.println("Data berhasil dihapus");
+                System.out.println("\nData berhasil dihapus");
             } else {
-                System.err.println("Data gagal dihapus");
+                System.err.println("\nData gagal dihapus");
             }
              
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
             menuPelanggan();
         } 
+        catch(SQLIntegrityConstraintViolationException e) {
+            try {
+                System.err.println("\nID Pelanggan " + id_pelanggan + " tidak bisa dihapus");
+                System.out.print("Silahkan masukkan ID yang lain!");
+                input.readLine();
+                menuPelanggan();
+            }
+            catch(IOException err) {
+                err.printStackTrace();
+            }
+        }
         catch (Exception e) 
         {
             System.err.println(e);

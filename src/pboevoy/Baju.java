@@ -184,16 +184,16 @@ public class Baju{
             System.out.format("+====================================+%n");
         
             // ambil input dari user
-            System.out.print("| Kode Baju \t: ");
+            System.out.print("| Kode Baju \t : ");
             kode_baju = input.readLine().trim();
            
             System.out.print("| Edit Nama Baju : ");
             nama_baju = input.readLine().trim();
             
-            System.out.print("| Edit Stok    : ");
+            System.out.print("| Edit Stok      : ");
             stok_baju = Integer.parseInt(input.readLine());
             
-            System.out.print("| Edit Harga \t: ");
+            System.out.print("| Edit Harga \t : ");
             harga = Integer.parseInt(input.readLine());
 
             // query update
@@ -293,6 +293,7 @@ public class Baju{
 
             System.out.print("Cari Kode Baju : ");
             kode_baju = input.readLine();
+            cls.clrscr();
             
             String sql = String.format("SELECT * FROM baju WHERE kode_baju = '%s';", kode_baju);
             
@@ -345,6 +346,7 @@ public class Baju{
 
             System.out.print("Cari Nama Baju : ");
             nama_baju = input.readLine();
+            cls.clrscr();
             
             String sql = String.format("SELECT * FROM baju WHERE nama_baju = '%s';", nama_baju);
             
@@ -398,6 +400,7 @@ public class Baju{
 
             System.out.print("Cari Stok Baju (>=): ");
             stok_baju = Integer.parseInt(input.readLine());
+            cls.clrscr();
             
             String sql = String.format("SELECT * FROM baju WHERE stok_baju >= '%d';", stok_baju);
             
@@ -462,6 +465,7 @@ public class Baju{
 
             System.out.print("Cari Stok Baju (<): ");
             stok_baju = Integer.parseInt(input.readLine());
+            cls.clrscr();
             
             String sql = String.format("SELECT * FROM baju WHERE stok_baju < '%d';", stok_baju);
             
@@ -545,6 +549,17 @@ public class Baju{
             input.readLine();
             menuBaju();
         } 
+        catch(SQLIntegrityConstraintViolationException e) {
+            try {
+                System.err.println("\nKode baju " + kode_baju + " tidak bisa dihapus");
+                System.out.print("Silahkan masukkan Kode yang lain!");
+                input.readLine();
+                menuBaju();
+            }
+            catch(IOException err) {
+                err.printStackTrace();
+            }
+        }
         catch (Exception e)
         {
             System.err.println(e);

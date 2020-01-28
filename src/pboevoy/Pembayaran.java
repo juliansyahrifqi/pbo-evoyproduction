@@ -8,6 +8,7 @@ public class Pembayaran extends ClearScreen{
     ResultSet rs;
     ConnectDB db = new ConnectDB("root", "");
     BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+    ClearScreen cls = new ClearScreen();
     
     public void bayar_sewa() {
     try {
@@ -20,6 +21,7 @@ public class Pembayaran extends ClearScreen{
 
         System.out.print("|  Masukkan No Sewa   : ");
         String no_sewa = input.readLine();
+        cls.clrscr();
         
         //Perintah query ambil kode_sewa
         String get_no_sewa = String.format("SELECT no_sewa FROM sewa WHERE no_sewa = '%s'", no_sewa);
@@ -105,6 +107,7 @@ public class Pembayaran extends ClearScreen{
 
         switch (pilihan) {
             case "y":
+                cls.clrscr();
                 System.out.println("=======================");
                 System.out.println("   Pembayaran Sukses   ");
                 System.out.println("      TERIMA KASIH     ");

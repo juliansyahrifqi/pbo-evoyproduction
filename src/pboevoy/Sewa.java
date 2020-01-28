@@ -395,13 +395,13 @@ public class Sewa {
         try 
         {  
             // Input dari user
-            System.out.print("| Nomor Sewa: ");
+            System.out.print("| Nomor Sewa\t  : ");
             no_sewa = input.readLine();
 
-            System.out.print("| Tanggal Sewa \t: ");
+            System.out.print("| Tanggal Sewa \t  : ");
             tgl_sewa= input.readLine();
 
-            System.out.print("| Tanggal Kembali   : ");
+            System.out.print("| Tanggal Kembali : ");
             tgl_kembali = input.readLine();
 
             // Perintah query update
@@ -427,6 +427,17 @@ public class Sewa {
             input.readLine();
             menuUbahSewa();
         } 
+        catch(SQLException e) {
+            try {
+                System.err.println("\nTanggal yang dimasukkan salah");
+                System.out.print("Silahkan masukkan tanggal yang lain!");
+                input.readLine();
+                menuUbahSewa();
+            }
+            catch(IOException err) {
+                err.printStackTrace();
+            }
+        }
         catch (Exception e) 
         {
             System.out.println(e);
@@ -445,12 +456,11 @@ public class Sewa {
         try 
         {  
             // Input dari user
-            System.out.print("| Nomor Sewa: ");
+            System.out.print("| Nomor Sewa \t    : ");
             no_sewa = input.readLine();
 
-            System.out.print("| Down Payment (DP) \t: ");
+            System.out.print("| Down Payment (DP) : ");
             dp_sewa = Integer.parseInt(input.readLine());
-
 
             // Perintah query update
             String sql = "UPDATE `evoyproduction`.`sewa` SET `dp_sewa`='%s' WHERE `no_sewa`='%s'";
@@ -475,6 +485,15 @@ public class Sewa {
             input.readLine();
             menuUbahSewa();
         } 
+        catch(NumberFormatException e) {
+            try {
+                System.err.println("\nDP Sewa harus berupa angka!");
+                input.readLine();
+                menuUbahSewa();
+            } catch (IOException err) {
+                err.printStackTrace();
+            } 
+        }
         catch (Exception e) 
         {
             System.out.println(e);
@@ -493,10 +512,10 @@ public class Sewa {
         try 
         {  
             // Input dari user
-            System.out.print("| Nomor Sewa: ");
+            System.out.print("| Nomor Sewa : ");
             no_sewa = input.readLine();
 
-            System.out.print("| Status : ");
+            System.out.print("| Status     : ");
             status = input.readLine();
 
             // Perintah query update
@@ -511,7 +530,7 @@ public class Sewa {
           
             //Jika ada baris yang terpengaruh dari hasil query
             if ((hasil > 0) && (rs.next() == true)) {
-                System.out.println("Status : Data berhasil diubah");
+                System.out.println("\nStatus : Data berhasil diubah");
             } 
             else if ((hasil == 0) && (rs.next() == false)) {
                 System.out.println("\nNo Sewa " + no_sewa + " tidak ditemukan!");
@@ -533,26 +552,26 @@ public class Sewa {
             db.connect();
             cls.clrscr(); //Method clear screen
             
-            System.out.format("======================================%n");
-            System.out.format("|         UBAH SEMUA DATA SEWA        |%n");
-            System.out.format("+====================================+%n");
+            System.out.format("===============================================%n");
+            System.out.format("|              UBAH SEMUA DATA SEWA            |%n");
+            System.out.format("+==============================================+%n");
         
         try 
         {  
             // Input dari user
-            System.out.print("| Nomor Sewa: ");
+            System.out.print("| Nomor Sewa \t\t   : ");
             no_sewa = input.readLine();
 
-            System.out.print("| Tanggal Sewa \t: ");
+            System.out.print("| Tgl Sewa (YYYY-MM-DD)    : ");
             tgl_sewa= input.readLine();
 
-            System.out.print("| Tanggal Kembali   : ");
+            System.out.print("| Tgl Kembali (YYYY-MM-DD) : ");
             tgl_kembali = input.readLine();
 
-            System.out.print("| Down Payment (DP) \t: ");
+            System.out.print("| Down Payment (DP) \t   : ");
             dp_sewa = Integer.parseInt(input.readLine());
 
-            System.out.print("| Status : ");
+            System.out.print("| Status \t\t   : ");
             status = input.readLine();
 
             // Perintah query update
@@ -567,7 +586,7 @@ public class Sewa {
           
             //Jika ada baris yang terpengaruh dari hasil query
             if ((hasil > 0) && (rs.next() == true)) {
-                System.out.println("Status : Data berhasil diubah");
+                System.out.println("\nStatus : Data berhasil diubah");
             } 
             else if ((hasil == 0) && (rs.next() == false)) {
                 System.out.println("\nNo Sewa " + no_sewa + " tidak ditemukan!");
@@ -578,6 +597,26 @@ public class Sewa {
             input.readLine();
             menuUbahSewa();
         } 
+        catch(SQLException e) {
+            try {
+                System.err.println("\nTanggal yang dimasukkan salah");
+                System.out.print("Silahkan masukkan tanggal yang lain!");
+                input.readLine();
+                menuUbahSewa();
+            }
+            catch(IOException err) {
+                err.printStackTrace();
+            }
+        }
+        catch(NumberFormatException e) {
+            try {
+                System.err.println("\nDP sewa harus berupa angka!");
+                input.readLine();
+                menuUbahSewa();
+            } catch (IOException err) {
+                err.printStackTrace();
+            } 
+        }
         catch (Exception e) 
         {
             System.err.println(e);

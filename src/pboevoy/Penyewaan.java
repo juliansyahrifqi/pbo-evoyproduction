@@ -9,12 +9,14 @@ public class Penyewaan {
     ConnectDB db = new ConnectDB("root", "");
     BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
     Pelanggan pelanggan = new Pelanggan();
+    ClearScreen cls = new ClearScreen();
     char y, n;
     int denda;
     
     public void sewa_baju() {
         try {
             db.connect();
+            cls.clrscr();
             
             System.out.format("================================================%n");
             System.out.format("|            SEWA BAJU EVOY PRODUCTION         |%n");
@@ -75,13 +77,13 @@ public class Penyewaan {
             if(rs.next() == true) //Jika data pelanggan ada 
             { 
                 db.getStatement().execute(tambah_sewa);
-                System.out.println("Data berhasil ditambahkan");
+                System.out.println("\nData berhasil ditambahkan");
                 System.out.println("Tekan enter untuk kembali");
                 input.readLine();
             } else // Jika data pelanggan belum ada
             {
-                System.err.println("Data pelanggan dengan " + id_pelanggan + "belum terdaftar");
-                System.out.print("Daftarkan pelanggan ? ");
+                System.err.println("Data pelanggan dengan " + id_pelanggan + " belum terdaftar");
+                System.out.print("Daftarkan pelanggan (y/n) ? ");
                 
                 char daftar = (char)input.read();
                 
@@ -90,9 +92,10 @@ public class Penyewaan {
                         pelanggan.tambahDataPelanggan();
                     break;     
                     case 'n':
-                    break;
                     default:
                         System.err.println("Masukkan salah");
+                        System.out.println("Tekan enter untuk kembali");
+                        input.readLine();
                     break;
                 }
             }
