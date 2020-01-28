@@ -22,8 +22,11 @@ public class ConnectDB {
             
             System.out.println("Koneksi ke database ...");
         }
+        catch(SQLException e ) {
+            System.err.println("Tidak dapat konek ke database");
+        }
         catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Sistem gagal dijalankan!");
         }
     }
     
