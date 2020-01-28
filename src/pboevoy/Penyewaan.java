@@ -53,6 +53,7 @@ public class Penyewaan {
             getHarga = String.format(getHarga, nama_baju);
             db.getStatement().execute(getHarga);
             
+            // Eksekusi query mendapatkan harga
             rs = db.getStatement().executeQuery(getHarga);
             
             rs.next();
@@ -77,7 +78,7 @@ public class Penyewaan {
                 System.out.println("Data berhasil ditambahkan");
                 System.out.println("Tekan enter untuk kembali");
                 input.readLine();
-            } else 
+            } else // Jika data pelanggan belum ada
             {
                 System.err.println("Data pelanggan dengan " + id_pelanggan + "belum terdaftar");
                 System.out.print("Daftarkan pelanggan ? ");

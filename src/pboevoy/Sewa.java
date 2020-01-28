@@ -173,9 +173,9 @@ public class Sewa {
         System.out.format("==========================================%n");
         System.out.format("|              MENU CARI SEWA            |%n");
         System.out.format("+========================================+%n");
-        System.out.println("| 1. Cari Data Dengan Nomor Sewa        |");
-        System.out.println("| 2. Cari Data Dengan Nama Penyewa      |");
-        System.out.println("| 3. Cari Data Dengan Nama Baju         |");
+        System.out.println("| 1. Cari Data Berdasarkan Nomor Sewa   |");
+        System.out.println("| 2. Cari Data Berdasarkan Nama Penyewa |");
+        System.out.println("| 3. Cari Data Berdasarkan Nama Baju    |");
         System.out.println("| 4. Kembali                            |");
         System.out.println("| 0. Keluar                             |");
         System.out.format("=========================================%n");
@@ -189,20 +189,16 @@ public class Sewa {
                 case 0:
                     System.exit(0);
                     break;
-                case 1: 
-                    cls.clrscr();
+                case 1:
                     cariDataNomorSewa();
                     break;
                 case 2:
-                    cls.clrscr();
                     cariDataNamaPelanggan();
                     break;
                 case 3:
-                    cls.clrscr();
                     cariDataNamaBaju();
                     break;
                 case 4: 
-                    cls.clrscr();
                     menuDataSewa();
                     break;
                 default:
@@ -222,8 +218,8 @@ public class Sewa {
             db.connect();
             cls.clrscr(); //Method clear screen
             
-            System.out.format("======================================%n");
-            System.out.format("|            CARI DATA SEWA          |%n");
+            System.out.format("=====================================%n");
+            System.out.format("|  CARI DATA SEWA BERDASARKAN NOMOR  | %n");
             System.out.format("+====================================+%n");
             
             System.out.print("Masukkan nomor sewa (S??) :");
@@ -238,13 +234,18 @@ public class Sewa {
             
             rs = db.getStatement().executeQuery(sql);
             
-            eksekusiQuery();
             if(rs.next() == false ){
-                System.err.println("Data dengan no sewa " + no_sewa +" tidak ada");
-                System.out.print("Tekan enter untuk kembali");
-                input.readLine();
-                menuCariSewa();
+                System.err.println("Data sewa dengan no sewa " + no_sewa +" tidak ada");
             }
+            
+            // Membuka statement baru untuk resultset
+            rs = db.getStatement().executeQuery(sql);
+            
+            eksekusiQuery();
+            System.out.print("Tekan enter untuk kembali");
+            input.readLine();
+            menuCariSewa();
+            
         }
         catch(Exception e) {
             System.err.println(e);
@@ -258,9 +259,9 @@ public class Sewa {
             db.connect();
             cls.clrscr(); //Method clear screen
             
-            System.out.format("======================================%n");
-            System.out.format("|             CARI DATA SEWA         |%n");
-            System.out.format("+====================================+%n");
+            System.out.format("============================================%n");
+            System.out.format("| CARI DATA SEWA BERDASARKAN NAMA PELANGGAN |%n");
+            System.out.format("+===========================================+%n");
             
             System.out.print("Masukkan nama penyewa :");
             nama_pelanggan = input.readLine();
@@ -274,13 +275,18 @@ public class Sewa {
             
             rs = db.getStatement().executeQuery(sql);
             
-            eksekusiQuery();
             if(rs.next() == false ){
-                System.err.println("Data dengan nama pelanggan " + nama_pelanggan +" tidak ada");
-                System.out.print("Tekan enter untuk kembali");
-                input.readLine();
-                menuCariSewa();
+                System.err.println("Data sewa dengan nama pelanggan " + nama_pelanggan +" tidak ada");
             }
+            
+            // Membuka statement baru untuk resultset
+            rs = db.getStatement().executeQuery(sql);
+            
+            eksekusiQuery();   
+            System.out.print("Tekan enter untuk kembali");
+            input.readLine();
+            menuCariSewa();
+            
         }
         catch(Exception e) {
             System.err.println(e);
@@ -295,7 +301,7 @@ public class Sewa {
             cls.clrscr(); //Method clear screen
             
             System.out.format("======================================%n");
-            System.out.format("|            CARI DATA SEWA          |%n");
+            System.out.format("|   CARI DATA SEWA BERDASARKAN BAJU  |%n");
             System.out.format("+====================================+%n");
             
             System.out.print("Masukkan nama baju :");
@@ -310,13 +316,18 @@ public class Sewa {
             
             rs = db.getStatement().executeQuery(sql);
             
-            eksekusiQuery();
-            if(rs.next() == false ){
-                System.err.println("Data dengan nama baju " + nama_baju +" tidak ada");
-                System.out.print("Tekan enter untuk kembali");
-                input.readLine();
-                menuCariSewa();
+            if(rs.next() == false ) {
+                System.err.println("Data sewa dengan nama baju " + nama_baju +" tidak ada");
             }
+            
+            // Membuka statement baru untuk resultset
+            rs = db.getStatement().executeQuery(sql);
+            
+            eksekusiQuery();  
+            System.out.print("Tekan enter untuk kembali");
+            input.readLine();
+            menuCariSewa();
+            
         }
         catch(Exception e) {
             System.err.println(e);
@@ -376,7 +387,7 @@ public class Sewa {
             cls.clrscr(); //Method clear screen
             
             System.out.format("======================================%n");
-            System.out.format("|            UBAH DATA SEWA          |%n");
+            System.out.format("|       UBAH DATA TANGGAL SEWA       |%n");
             System.out.format("+====================================+%n");
         
         try 
@@ -426,7 +437,7 @@ public class Sewa {
             cls.clrscr(); //Method clear screen
             
             System.out.format("======================================%n");
-            System.out.format("|            UBAH DATA SEWA          |%n");
+            System.out.format("|          UBAH DATA DP SEWA          |%n");
             System.out.format("+====================================+%n");
         
         try 
@@ -474,7 +485,7 @@ public class Sewa {
             cls.clrscr(); //Method clear screen
             
             System.out.format("======================================%n");
-            System.out.format("|            UBAH DATA SEWA          |%n");
+            System.out.format("|        UBAH DATA STATUS SEWA       |%n");
             System.out.format("+====================================+%n");
         
         try 
@@ -521,7 +532,7 @@ public class Sewa {
             cls.clrscr(); //Method clear screen
             
             System.out.format("======================================%n");
-            System.out.format("|            UBAH DATA SEWA          |%n");
+            System.out.format("|         UBAH SEMUA DATA SEWA        |%n");
             System.out.format("+====================================+%n");
         
         try 

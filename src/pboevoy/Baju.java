@@ -276,7 +276,7 @@ public class Baju{
             cls.clrscr(); //Method Clear Screen
             
             System.out.format("===================================%n");
-            System.out.format("|             CARI DATA BAJU       |%n");
+            System.out.format("| CARI DATA BAJU BERDASARKAN KODE  |%n");
             System.out.format("+==================================+%n");
 
             System.out.print("Cari Kode Baju : ");
@@ -286,6 +286,13 @@ public class Baju{
             
             rs = db.getStatement().executeQuery(sql);
             
+            if(rs.next() == false) {
+                System.out.println("Data dengan kode baju "+kode_baju+" tidak ditemukan!");
+            }
+            
+            // Open new statement for resultset
+            rs = db.getStatement().executeQuery(sql);
+           
             String tbl = "| %-11s | %-19s | %-6d | %-13d | %n";
 
             System.out.format("=============================================================%n");
@@ -324,7 +331,7 @@ public class Baju{
             cls.clrscr(); //Method Clear Screen
             
             System.out.format("===================================%n");
-            System.out.format("|             CARI DATA BAJU       |%n");
+            System.out.format("| CARI DATA BAJU BERDASARKAN NAMA  |%n");
             System.out.format("+==================================+%n");
 
             System.out.print("Cari Nama Baju : ");
@@ -332,6 +339,13 @@ public class Baju{
             
             String sql = String.format("SELECT * FROM baju WHERE nama_baju = '%s';", nama_baju);
             
+            rs = db.getStatement().executeQuery(sql);
+            
+            if(rs.next() == false) {
+                System.out.println("Data dengan nama baju "+nama_baju+" tidak ditemukan!");
+            }
+            
+            // Open new statement for resultset
             rs = db.getStatement().executeQuery(sql);
             
             String tbl = "| %-11s | %-19s | %-6d | %-13d | %n";
@@ -371,15 +385,22 @@ public class Baju{
             db.connect();
             cls.clrscr(); //Method Clear Screen
             
-            System.out.format("===================================%n");
-            System.out.format("|             CARI DATA BAJU       |%n");
-            System.out.format("+==================================+%n");
+            System.out.format("=======================================%n");
+            System.out.format("| CARI DATA BAJU BERDASARKAN STOK (>=) |%n");
+            System.out.format("+======================================+%n");
 
-            System.out.print("Cari Stok Baju : ");
+            System.out.print("Cari Stok Baju (>=): ");
             stok_baju = Integer.parseInt(input.readLine());
             
             String sql = String.format("SELECT * FROM baju WHERE stok_baju >= '%d';", stok_baju);
             
+            rs = db.getStatement().executeQuery(sql);
+            
+            if(rs.next() == false) {
+                System.out.println("Data dengan stok baju > "+stok_baju+" tidak ditemukan!");
+            }
+            
+            // Open new statement for resultset
             rs = db.getStatement().executeQuery(sql);
             
             String tbl = "| %-11s | %-19s | %-6d | %-13d | %n";
@@ -402,7 +423,7 @@ public class Baju{
             System.out.format("+=============+=====================+========+===============+%n");
             
             if(rs.next() == false ){
-                System.err.println("Data dengan stok baju > " + stok_baju +" tidak ada");
+                System.err.println("Data dengan stok baju >= " + stok_baju +" tidak ada");
                 System.out.print("Tekan enter untuk kembali");
                 input.readLine();
                 menuBaju();
@@ -430,15 +451,22 @@ public class Baju{
             db.connect();
             cls.clrscr(); //Method Clear Screen
             
-            System.out.format("===================================%n");
-            System.out.format("|             CARI DATA BAJU       |%n");
-            System.out.format("+==================================+%n");
+            System.out.format("======================================%n");
+            System.out.format("| CARI DATA BAJU BERDASARKAN STOK (<) |%n");
+            System.out.format("+=====================================+%n");
 
-            System.out.print("Cari Stok Baju : ");
+            System.out.print("Cari Stok Baju (<): ");
             stok_baju = Integer.parseInt(input.readLine());
             
             String sql = String.format("SELECT * FROM baju WHERE stok_baju < '%d';", stok_baju);
             
+            rs = db.getStatement().executeQuery(sql);
+            
+            if(rs.next() == false) {
+                System.out.println("Data dengan stok baju <"+stok_baju+" tidak ditemukan!");
+            }
+            
+            // Open new statement for resultset
             rs = db.getStatement().executeQuery(sql);
             
             String tbl = "| %-11s | %-19s | %-6d | %-13d | %n";

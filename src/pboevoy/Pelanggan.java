@@ -112,8 +112,19 @@ public class Pelanggan {
                 err.printStackTrace();
             }
         }
+        catch(SQLException e) {
+            try {
+                System.err.println("\nID Pelanggan terlalu panjang!");
+                System.out.print("Silahkan masukkan ID yang lain!");
+                input.readLine();
+                menuPelanggan();
+            }
+            catch(IOException err) {
+                err.printStackTrace();
+            }
+        }
         catch(Exception e) {
-            System.err.println(e);
+            System.out.println(e);
         }
     }
     
@@ -261,16 +272,23 @@ public class Pelanggan {
             cls.clrscr(); //Method clear screen
             
             System.out.format("======================================%n");
-            System.out.format("|          CARI DATA PELANGGAN       |%n");
+            System.out.format("| CARI DATA PELANGGAN BERDASARKAN ID |%n");
             System.out.format("+====================================+%n");
             
             System.out.print("Masukkan ID :");
             id_pelanggan = input.readLine();
             
             String sql = String.format("SELECT * FROM pelanggan WHERE `id_pelanggan` ='%s'", id_pelanggan);
-            
+             
             rs = db.getStatement().executeQuery(sql);
             
+            if(rs.next() == false) {
+                System.out.println("Data dengan ID Pelanggan "+ id_pelanggan + " tidak ditemukan");
+            } 
+            
+            // Open new statement for resultset
+            rs = db.getStatement().executeQuery(sql);
+                
             String tbl ="| %-12s | %-12s | %-14s | %-8s | %-12s | %n";
 
             System.out.format("=========================================================================%n");
@@ -290,12 +308,9 @@ public class Pelanggan {
             }
             System.out.format("+==============+==============+================+==========+==============+%n"); 
            
-            if(rs.next() == false ){
-                System.err.println("Data dengan ID Pelanggan " + id_pelanggan +" tidak ada");
-                System.out.print("Tekan enter untuk kembali");
-                input.readLine();
-                menuPelanggan();
-            }
+            System.out.print("Tekan enter untuk kembali");
+            input.readLine();
+            menuPelanggan();       
         }
         catch(Exception e) {
             System.err.println(e);
@@ -307,14 +322,20 @@ public class Pelanggan {
             db.connect();
             cls.clrscr(); //Method clear screen
             
-            System.out.format("======================================%n");
-            System.out.format("|          CARI DATA PELANGGAN       |%n");
-            System.out.format("+====================================+%n");
+            System.out.format("=======================================%n");
+            System.out.format("| CARI DATA PELANGGAN BERDASARKAN NAMA |%n");
+            System.out.format("+======================================+%n");
             
             System.out.print("Masukkan Nama : ");
             nama = input.readLine();
             
             String sql = String.format("SELECT * FROM pelanggan WHERE `nama` ='%s'", nama);
+            
+            rs = db.getStatement().executeQuery(sql);
+            
+            if(rs.next() == false) {
+                System.out.println("Data Pelanggan dengan Nama "+ nama + " tidak ditemukan");
+            };
             
             rs = db.getStatement().executeQuery(sql);
             
@@ -337,12 +358,10 @@ public class Pelanggan {
             }
             System.out.format("+==============+==============+================+==========+==============+%n"); 
            
-            if(rs.next() == false ){
-                System.err.println("Data dengan Nama Pelanggan " + nama +" tidak ada");
-                System.out.print("Tekan enter untuk kembali");
-                input.readLine();
-                menuPelanggan();
-            }
+            System.out.print("Tekan enter untuk kembali");
+            input.readLine();
+            menuPelanggan();
+            
         }
         catch(Exception e) {
             System.err.println(e);
@@ -356,14 +375,20 @@ public class Pelanggan {
             db.connect();
             cls.clrscr(); //Method clear screen
             
-            System.out.format("======================================%n");
-            System.out.format("|          CARI DATA PELANGGAN       |%n");
-            System.out.format("+====================================+%n");
+            System.out.format("=======================================%n");
+            System.out.format("| CARI DATA PELANGGAN BERDASARKAN KOTA |%n");
+            System.out.format("+======================================+%n");
             
             System.out.print("Masukkan Kota : ");
             kota = input.readLine();
             
             String sql = String.format("SELECT * FROM pelanggan WHERE kota ='%s'", kota);
+            
+            rs = db.getStatement().executeQuery(sql);
+            
+            if(rs.next() == false) {
+                System.out.println("Data Pelanggan dari kota "+ kota + " tidak ditemukan");
+            }
             
             rs = db.getStatement().executeQuery(sql);
             
@@ -386,12 +411,10 @@ public class Pelanggan {
             }
             System.out.format("+==============+==============+================+==========+==============+%n"); 
             
-            if(rs.next() == false ){
-                System.err.println("Data Pelanggan dengan kota " + kota +" tidak ada");
-                System.out.print("Tekan enter untuk kembali");
-                input.readLine();
-                menuPelanggan();
-            }
+            System.out.print("Tekan enter untuk kembali");
+            input.readLine();
+            menuPelanggan();
+            
         }
         catch(Exception e) {
             System.out.println(e);
