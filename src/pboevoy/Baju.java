@@ -111,7 +111,19 @@ public class Baju{
             catch(IOException err) {
                 err.printStackTrace();
             }
-        } catch(NumberFormatException e) {
+        } 
+        catch(SQLException e) {
+            try {
+                System.err.println("\nKode Baju terlalu panjang!");
+                System.out.print("Silahkan masukkan Kode yang lain!");
+                input.readLine();
+                menuBaju();
+            }
+            catch(IOException err) {
+                err.printStackTrace();
+            }
+        }
+        catch(NumberFormatException e) {
             try {
                 System.err.println("\nStok dan harga harus berupa angka!");
                 input.readLine();
@@ -285,14 +297,7 @@ public class Baju{
             String sql = String.format("SELECT * FROM baju WHERE kode_baju = '%s';", kode_baju);
             
             rs = db.getStatement().executeQuery(sql);
-            
-            if(rs.next() == false) {
-                System.out.println("Data dengan kode baju "+kode_baju+" tidak ditemukan!");
-            }
-            
-            // Open new statement for resultset
-            rs = db.getStatement().executeQuery(sql);
-           
+               
             String tbl = "| %-11s | %-19s | %-6d | %-13d | %n";
 
             System.out.format("=============================================================%n");
@@ -312,12 +317,16 @@ public class Baju{
             }
             System.out.format("+=============+=====================+========+===============+%n");
             
-            if(rs.next() == false ){
-                System.err.println("Data dengan kode baju " + kode_baju +" tidak ada");
-                System.out.print("Tekan enter untuk kembali");
-                input.readLine();
-                menuBaju();
+            // Open new statement for resultset
+            rs = db.getStatement().executeQuery(sql);
+            
+            if(rs.next() == false ) {
+                System.out.println("Data baju dengan kode >= "+kode_baju+" tidak ditemukan");
             }
+            
+            System.out.print("Tekan enter untuk kembali");
+            input.readLine();
+            menuBaju();
         }
         catch(Exception e) {
             System.err.println(e);
@@ -340,14 +349,7 @@ public class Baju{
             String sql = String.format("SELECT * FROM baju WHERE nama_baju = '%s';", nama_baju);
             
             rs = db.getStatement().executeQuery(sql);
-            
-            if(rs.next() == false) {
-                System.out.println("Data dengan nama baju "+nama_baju+" tidak ditemukan!");
-            }
-            
-            // Open new statement for resultset
-            rs = db.getStatement().executeQuery(sql);
-            
+             
             String tbl = "| %-11s | %-19s | %-6d | %-13d | %n";
 
             System.out.format("=============================================================%n");
@@ -367,12 +369,17 @@ public class Baju{
             }
             System.out.format("+=============+=====================+========+===============+%n");
             
-            if(rs.next() == false ){
-                System.err.println("Data dengan nama baju " + nama_baju +" tidak ada");
-                System.out.print("Tekan enter untuk kembali");
-                input.readLine();
-                menuBaju();
+            // Open new statement for resultset
+            rs = db.getStatement().executeQuery(sql);
+            
+            if(rs.next() == false ) {
+                System.out.println("Data baju dengan nama "+nama_baju+" tidak ditemukan");
             }
+            
+            System.out.print("Tekan enter untuk kembali");
+            input.readLine();
+            menuBaju();
+            
         }
         catch(Exception e) {
             System.err.println(e);
@@ -395,14 +402,7 @@ public class Baju{
             String sql = String.format("SELECT * FROM baju WHERE stok_baju >= '%d';", stok_baju);
             
             rs = db.getStatement().executeQuery(sql);
-            
-            if(rs.next() == false) {
-                System.out.println("Data dengan stok baju > "+stok_baju+" tidak ditemukan!");
-            }
-            
-            // Open new statement for resultset
-            rs = db.getStatement().executeQuery(sql);
-            
+              
             String tbl = "| %-11s | %-19s | %-6d | %-13d | %n";
 
             System.out.format("=============================================================%n");
@@ -422,12 +422,17 @@ public class Baju{
             }
             System.out.format("+=============+=====================+========+===============+%n");
             
-            if(rs.next() == false ){
-                System.err.println("Data dengan stok baju >= " + stok_baju +" tidak ada");
-                System.out.print("Tekan enter untuk kembali");
-                input.readLine();
-                menuBaju();
+            // Open new statement for resultset
+            rs = db.getStatement().executeQuery(sql);
+            
+            if(rs.next() == false ) {
+                System.out.println("Data baju dengan stok >= "+stok_baju+" tidak ditemukan");
             }
+            
+            System.out.print("Tekan enter untuk kembali");
+            input.readLine();
+            menuBaju();
+            
         }
          catch(NumberFormatException e) {
             try {
@@ -461,14 +466,7 @@ public class Baju{
             String sql = String.format("SELECT * FROM baju WHERE stok_baju < '%d';", stok_baju);
             
             rs = db.getStatement().executeQuery(sql);
-            
-            if(rs.next() == false) {
-                System.out.println("Data dengan stok baju <"+stok_baju+" tidak ditemukan!");
-            }
-            
-            // Open new statement for resultset
-            rs = db.getStatement().executeQuery(sql);
-            
+                   
             String tbl = "| %-11s | %-19s | %-6d | %-13d | %n";
 
             System.out.format("=============================================================%n");
@@ -488,12 +486,17 @@ public class Baju{
             }
             System.out.format("+=============+=====================+========+===============+%n");
             
-            if(rs.next() == false ){
-                System.err.println("Data dengan stok baju < " + stok_baju +" tidak ada");
-                System.out.print("Tekan enter untuk kembali");
-                input.readLine();
-                menuBaju();
+            // Open new statement for resultset
+            rs = db.getStatement().executeQuery(sql);
+            
+            if(rs.next() == false ) {
+                System.out.println("Data baju dengan stok < "+stok_baju+" tidak ditemukan");
             }
+           
+            System.out.print("Tekan enter untuk kembali");
+            input.readLine();
+            menuBaju();
+            
         }
          catch(NumberFormatException e) {
             try {

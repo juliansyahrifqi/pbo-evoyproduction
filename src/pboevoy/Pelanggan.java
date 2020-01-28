@@ -93,13 +93,14 @@ public class Pelanggan {
                        
             int intBaris = db.getStatement().executeUpdate(sql);
                 if ( intBaris > 0 ) {
-                    System.out.println("Penambahan Data berhasil");
+                    System.out.println("\nPenambahan Data berhasil");
                 }
                 else {
                     System.err.println("Penambahan Data gagal");
                 }
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
+            menuPelanggan();
         }
         catch(SQLIntegrityConstraintViolationException e) {
             try {
@@ -281,13 +282,6 @@ public class Pelanggan {
             String sql = String.format("SELECT * FROM pelanggan WHERE `id_pelanggan` ='%s'", id_pelanggan);
              
             rs = db.getStatement().executeQuery(sql);
-            
-            if(rs.next() == false) {
-                System.out.println("Data dengan ID Pelanggan "+ id_pelanggan + " tidak ditemukan");
-            } 
-            
-            // Open new statement for resultset
-            rs = db.getStatement().executeQuery(sql);
                 
             String tbl ="| %-12s | %-12s | %-14s | %-8s | %-12s | %n";
 
@@ -307,6 +301,13 @@ public class Pelanggan {
                 System.out.format(tbl, id_pelanggan, nama, alamat, kota, no_tlp);
             }
             System.out.format("+==============+==============+================+==========+==============+%n"); 
+            
+            // Open new statement for resultset
+            rs = db.getStatement().executeQuery(sql);
+            
+            if(rs.next() == false ) {
+                System.out.println("Data pelanggan dengan ID "+id_pelanggan+" tidak ditemukan");
+            }
            
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
@@ -333,12 +334,6 @@ public class Pelanggan {
             
             rs = db.getStatement().executeQuery(sql);
             
-            if(rs.next() == false) {
-                System.out.println("Data Pelanggan dengan Nama "+ nama + " tidak ditemukan");
-            };
-            
-            rs = db.getStatement().executeQuery(sql);
-            
             String tbl ="| %-12s | %-12s | %-14s | %-8s | %-12s | %n";
 
             System.out.format("=========================================================================%n");
@@ -357,6 +352,13 @@ public class Pelanggan {
                 System.out.format(tbl, id_pelanggan, nama, alamat, kota, no_tlp);
             }
             System.out.format("+==============+==============+================+==========+==============+%n"); 
+            
+            // Open new statement for resultset
+            rs = db.getStatement().executeQuery(sql);
+            
+            if(rs.next() == false ) {
+                System.out.println("Data pelanggan dengan nama "+nama+" tidak ditemukan");
+            }
            
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
@@ -386,12 +388,6 @@ public class Pelanggan {
             
             rs = db.getStatement().executeQuery(sql);
             
-            if(rs.next() == false) {
-                System.out.println("Data Pelanggan dari kota "+ kota + " tidak ditemukan");
-            }
-            
-            rs = db.getStatement().executeQuery(sql);
-            
             String tbl ="| %-12s | %-12s | %-14s | %-8s | %-12s | %n";
 
             System.out.format("=========================================================================%n");
@@ -410,6 +406,13 @@ public class Pelanggan {
                 System.out.format(tbl, id_pelanggan, nama, alamat, kota, no_tlp);
             }
             System.out.format("+==============+==============+================+==========+==============+%n"); 
+            
+            // Open new statement for resultset
+            rs = db.getStatement().executeQuery(sql);
+            
+            if(rs.next() == false ) {
+                System.out.println("Data pelanggan dari kota "+kota+" tidak ditemukan");
+            }
             
             System.out.print("Tekan enter untuk kembali");
             input.readLine();

@@ -233,15 +233,16 @@ public class Sewa {
                     + "ORDER BY no_sewa", no_sewa);
             
             rs = db.getStatement().executeQuery(sql);
+           
+            eksekusiQuery();
             
-            if(rs.next() == false ){
-                System.err.println("Data sewa dengan no sewa " + no_sewa +" tidak ada");
-            }
-            
-            // Membuka statement baru untuk resultset
+            // Open new statement for resultset
             rs = db.getStatement().executeQuery(sql);
             
-            eksekusiQuery();
+            if(rs.next() == false ) {
+                System.out.println("Data sewa dengan nomor sewa "+no_sewa+" tidak ditemukan");
+            }
+            
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
             menuCariSewa();
@@ -275,14 +276,15 @@ public class Sewa {
             
             rs = db.getStatement().executeQuery(sql);
             
-            if(rs.next() == false ){
-                System.err.println("Data sewa dengan nama pelanggan " + nama_pelanggan +" tidak ada");
-            }
+            eksekusiQuery();  
             
-            // Membuka statement baru untuk resultset
+            // Open new statement for resultset
             rs = db.getStatement().executeQuery(sql);
             
-            eksekusiQuery();   
+            if(rs.next() == false ) {
+                System.out.println("Data sewa dengan nama pelanggan "+nama_pelanggan+" tidak ditemukan");
+            }
+            
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
             menuCariSewa();
@@ -315,15 +317,15 @@ public class Sewa {
                     + "ORDER BY no_sewa", nama_baju);
             
             rs = db.getStatement().executeQuery(sql);
+              
+            eksekusiQuery();  
             
-            if(rs.next() == false ) {
-                System.err.println("Data sewa dengan nama baju " + nama_baju +" tidak ada");
-            }
-            
-            // Membuka statement baru untuk resultset
+            // Open new statement for resultset
             rs = db.getStatement().executeQuery(sql);
             
-            eksekusiQuery();  
+            if(rs.next() == false ) {
+                System.out.println("Data sewa dengan nama baju "+nama_baju+" tidak ditemukan");
+            }
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
             menuCariSewa();
