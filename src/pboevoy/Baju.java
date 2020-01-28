@@ -440,7 +440,7 @@ public class Baju{
             System.out.print("Cari Stok Baju : ");
             stok_baju = Integer.parseInt(input.readLine());
             
-            String sql = String.format("SELECT * FROM baju WHERE stok_baju < 100;", stok_baju);
+            String sql = String.format("SELECT * FROM baju WHERE stok_baju < '%d';", stok_baju);
             
             rs = db.getStatement().executeQuery(sql);
             
