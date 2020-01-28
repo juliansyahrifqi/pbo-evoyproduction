@@ -33,12 +33,15 @@ public class Sewa {
                     System.exit(0);
                     break;
                 case 1: 
+                    cls.clrscr();
                     menuTampilSewa();
                     break;
                 case 2:
+                    cls.clrscr();
                     menuUbahSewa();
                     break;
                 case 3:
+                    cls.clrscr();
                     menuCariSewa();
                     break;
                 case 4:
@@ -48,7 +51,7 @@ public class Sewa {
             }
         }
         catch(Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
     
@@ -78,7 +81,7 @@ public class Sewa {
             System.out.format("+=====================+=================+=====+============+========+========+=============+%n");
         }
         catch(Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
     
@@ -102,21 +105,24 @@ public class Sewa {
                     System.exit(0);
                     break;
                 case 1: 
+                    cls.clrscr();
                     tampilDataSewa();
                     break;
                 case 2:
+                    cls.clrscr();
                     tampilSewaBelumLunas();
                     break;
                 case 3:
+                    cls.clrscr();
                     menuDataSewa();
                     break;
                 default:
-                    System.out.println("Pilihan Salah");
+                    System.err.println("Pilihan Salah");
                     break;
             }
         }
         catch(Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
     
@@ -138,7 +144,7 @@ public class Sewa {
             input.readLine();
         }
         catch(Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }  
     }
     
@@ -160,7 +166,7 @@ public class Sewa {
             input.readLine();
         }
         catch(Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }  
     } 
     
@@ -185,15 +191,19 @@ public class Sewa {
                     System.exit(0);
                     break;
                 case 1: 
+                    cls.clrscr();
                     cariDataNomorSewa();
                     break;
                 case 2:
+                    cls.clrscr();
                     cariDataNamaPelanggan();
                     break;
                 case 3:
+                    cls.clrscr();
                     cariDataNamaBaju();
                     break;
                 case 4: 
+                    cls.clrscr();
                     menuDataSewa();
                     break;
                 default:
@@ -202,7 +212,7 @@ public class Sewa {
             }
         }
         catch(Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
     
@@ -212,6 +222,10 @@ public class Sewa {
         {
             db.connect();
             cls.clrscr(); //Method clear screen
+            
+            System.out.format("======================================%n");
+            System.out.format("|            CARI DATA SEWA          |%n");
+            System.out.format("+====================================+%n");
             
             System.out.print("Masukkan nomor sewa (S??) :");
             no_sewa = input.readLine();
@@ -227,14 +241,14 @@ public class Sewa {
             
             eksekusiQuery();
             if(rs.next() == false ){
-                System.out.println("Data dengan no sewa " + no_sewa +" tidak ada");
+                System.err.println("Data dengan no sewa " + no_sewa +" tidak ada");
                 System.out.print("Tekan enter untuk kembali");
                 input.readLine();
                 menuCariSewa();
             }
         }
         catch(Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
         
@@ -244,6 +258,10 @@ public class Sewa {
         {
             db.connect();
             cls.clrscr(); //Method clear screen
+            
+            System.out.format("======================================%n");
+            System.out.format("|          CARI DATA PELANGGAN       |%n");
+            System.out.format("+====================================+%n");
             
             System.out.print("Masukkan nama penyewa :");
             nama_pelanggan = input.readLine();
@@ -259,14 +277,14 @@ public class Sewa {
             
             eksekusiQuery();
             if(rs.next() == false ){
-                System.out.println("Data dengan nama pelanggan " + nama_pelanggan +" tidak ada");
+                System.err.println("Data dengan nama pelanggan " + nama_pelanggan +" tidak ada");
                 System.out.print("Tekan enter untuk kembali");
                 input.readLine();
                 menuCariSewa();
             }
         }
         catch(Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
     
@@ -276,6 +294,10 @@ public class Sewa {
         {
             db.connect();
             cls.clrscr(); //Method clear screen
+            
+            System.out.format("======================================%n");
+            System.out.format("|          CARI DATA PELANGGAN       |%n");
+            System.out.format("+====================================+%n");
             
             System.out.print("Masukkan nama baju :");
             nama_baju = input.readLine();
@@ -291,18 +313,19 @@ public class Sewa {
             
             eksekusiQuery();
             if(rs.next() == false ){
-                System.out.println("Data dengan nama baju " + nama_baju +" tidak ada");
+                System.err.println("Data dengan nama baju " + nama_baju +" tidak ada");
                 System.out.print("Tekan enter untuk kembali");
                 input.readLine();
                 menuCariSewa();
             }
         }
         catch(Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
    
     public void menuUbahSewa() {   
+        cls.clrscr();
         System.out.format("==========================================%n");
         System.out.format("|         TAMPIL DATA PELANGGAN          |%n");
         System.out.format("+========================================+%n");
@@ -324,22 +347,26 @@ public class Sewa {
                     System.exit(0);
                     break;
                 case 1: 
+                    cls.clrscr();
                     ubahDataTanggalSewa();
                     break;
                 case 2:
+                    cls.clrscr();
                     ubahDataDPSewa();
                     break;
                 case 3:
+                    cls.clrscr();
                     ubahDataStatusSewa();
                     break;
                 case 4:
+                    cls.clrscr();
                     ubahSemuaDataSewa();
                     break;
                 case 5:
                     menuDataSewa();
                     break;
                 default:
-                    System.out.println("Pilihan Salah");
+                    System.err.println("Pilihan Salah");
                     break;
             }
         }
@@ -390,8 +417,9 @@ public class Sewa {
             
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
+            menuDataSewa();
         } 
-        catch (IOException | SQLException e) 
+        catch (Exception e) 
         {
             System.out.println(e);
         }
@@ -437,8 +465,9 @@ public class Sewa {
             
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
+            menuDataSewa();
         } 
-        catch (IOException | SQLException e) 
+        catch (Exception e) 
         {
             System.out.println(e);
         }
@@ -483,10 +512,11 @@ public class Sewa {
             
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
+            menuDataSewa();
         } 
-        catch (IOException | SQLException e) 
+        catch (Exception e) 
         {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
      
@@ -538,10 +568,11 @@ public class Sewa {
             
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
+            menuDataSewa();
         } 
-        catch (IOException | SQLException e) 
+        catch (Exception e) 
         {
-            System.out.println(e);
+            System.err.println(e);
         }
     } 
 }

@@ -112,10 +112,10 @@ public class Pembayaran extends ClearScreen{
                 db.getStatement().execute(updateStatus);
             break;
             case "n":
-                System.out.println("Pembayaran Gagal !");
+                System.err.println("Pembayaran Gagal !");
             break;
             default:
-                System.out.println("Pilihan salah");
+                System.err.println("Pilihan salah");
             break;              
         }   
         System.out.print("Tekan enter untuk kembali");

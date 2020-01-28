@@ -79,7 +79,7 @@ public class Penyewaan {
                 input.readLine();
             } else 
             {
-                System.out.println("Data pelanggan dengan " + id_pelanggan + "belum terdaftar");
+                System.err.println("Data pelanggan dengan " + id_pelanggan + "belum terdaftar");
                 System.out.print("Daftarkan pelanggan ? ");
                 
                 char daftar = (char)input.read();
@@ -134,16 +134,16 @@ public class Penyewaan {
         }
         catch(NumberFormatException e) {
             try {
-                System.out.println("Jumlah dan DP Sewa harus berupa angka!");
+                System.err.println("Jumlah dan DP Sewa harus berupa angka!");
                 System.out.print("Tekan enter untuk kembali");
                 input.readLine();
             }
             catch(IOException err) {
-                System.out.print(err);
+                System.err.print(err);
             }
         } 
         catch(Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
 }

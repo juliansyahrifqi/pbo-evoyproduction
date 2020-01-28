@@ -95,14 +95,14 @@ public class Pelanggan {
                     System.out.println("Penambahan Data berhasil");
                 }
                 else {
-                    System.out.println("Penambahan Data gagal");
+                    System.err.println("Penambahan Data gagal");
                 }
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
         }
         catch(SQLIntegrityConstraintViolationException e) {
             try {
-                System.out.println("ID Pelanggan " + id_pelanggan + " sudah ada");
+                System.err.println("ID Pelanggan " + id_pelanggan + " sudah ada");
                 System.out.print("Silahkan masukkan ID yang lain!");
                 input.readLine();
                 menuPelanggan();
@@ -112,7 +112,7 @@ public class Pelanggan {
             }
         }
         catch(Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
     
@@ -146,9 +146,10 @@ public class Pelanggan {
             System.out.format("+==============+==============+==================================+==========+==============+%n");
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
+            menuPelanggan();
         }
         catch(Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }  
     }
    
@@ -191,23 +192,25 @@ public class Pelanggan {
           
             //Jika ada baris yang terpengaruh dari hasil query
             if ((hasil > 0) && (rs.next() == true)) {
-                System.out.println("Status : Data berhasil diubah");
+                System.out.println("\nStatus : Data berhasil diubah");
             } 
             else if ((hasil == 0) && (rs.next() == false)) {
-                System.out.println("\nID Pelanggan " + id_pelanggan + " tidak ditemukan!");
-                System.out.println("Status : Data gagal diubah");
+                System.err.println("\nID Pelanggan " + id_pelanggan + " tidak ditemukan!");
+                System.err.println("Status : Data gagal diubah");
             }
             
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
+            menuPelanggan();
         } 
         catch (Exception e) 
         {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
     
     public void menuCariPelanggan() {
+        cls.clrscr();
         System.out.format("======================================%n");
         System.out.format("|           CARI DATA PELANGGAN       |%n");
         System.out.format("+=====================================+%n");
@@ -240,12 +243,12 @@ public class Pelanggan {
                     menuPelanggan();
                     break;
                 default:
-                    System.out.println("Pilihan Salah");
+                    System.err.println("Pilihan Salah");
                     break;
             }
         }
         catch(Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
     
@@ -255,6 +258,10 @@ public class Pelanggan {
         {
             db.connect();
             cls.clrscr(); //Method clear screen
+            
+            System.out.format("======================================%n");
+            System.out.format("|          CARI DATA PELANGGAN       |%n");
+            System.out.format("+====================================+%n");
             
             System.out.print("Masukkan ID :");
             id_pelanggan = input.readLine();
@@ -283,14 +290,14 @@ public class Pelanggan {
             System.out.format("+==============+==============+================+==========+==============+%n"); 
            
             if(rs.next() == false ){
-                System.out.println("Data dengan ID Pelanggan " + id_pelanggan +" tidak ada");
+                System.err.println("Data dengan ID Pelanggan " + id_pelanggan +" tidak ada");
                 System.out.print("Tekan enter untuk kembali");
                 input.readLine();
                 menuPelanggan();
             }
         }
         catch(Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }       
     }
     
@@ -298,6 +305,10 @@ public class Pelanggan {
         try {
             db.connect();
             cls.clrscr(); //Method clear screen
+            
+            System.out.format("======================================%n");
+            System.out.format("|          CARI DATA PELANGGAN       |%n");
+            System.out.format("+====================================+%n");
             
             System.out.print("Masukkan Nama : ");
             nama = input.readLine();
@@ -326,14 +337,14 @@ public class Pelanggan {
             System.out.format("+==============+==============+================+==========+==============+%n"); 
            
             if(rs.next() == false ){
-                System.out.println("Data dengan Nama Pelanggan " + nama +" tidak ada");
+                System.err.println("Data dengan Nama Pelanggan " + nama +" tidak ada");
                 System.out.print("Tekan enter untuk kembali");
                 input.readLine();
                 menuPelanggan();
             }
         }
         catch(Exception e) {
-            e.printStackTrace();
+            System.err.println(e);
         }
     }
     
@@ -343,6 +354,10 @@ public class Pelanggan {
         {
             db.connect();
             cls.clrscr(); //Method clear screen
+            
+            System.out.format("======================================%n");
+            System.out.format("|          CARI DATA PELANGGAN       |%n");
+            System.out.format("+====================================+%n");
             
             System.out.print("Masukkan Kota : ");
             kota = input.readLine();
@@ -371,7 +386,7 @@ public class Pelanggan {
             System.out.format("+==============+==============+================+==========+==============+%n"); 
             
             if(rs.next() == false ){
-                System.out.println("Data Pelanggan dengan kota " + kota +" tidak ada");
+                System.err.println("Data Pelanggan dengan kota " + kota +" tidak ada");
                 System.out.print("Tekan enter untuk kembali");
                 input.readLine();
                 menuPelanggan();
@@ -401,15 +416,21 @@ public class Pelanggan {
             String sql = String.format("DELETE FROM pelanggan WHERE id_pelanggan = '%s'", id_pelanggan);
             
             //Eksekusi query hapus data
-            db.getStatement().execute(sql);
+            int hasil = db.getStatement().executeUpdate(sql);
             
-            
+            if(hasil > 0) {
+                System.out.println("Data berhasil dihapus");
+            } else {
+                System.err.println("Data gagal dihapus");
+            }
+             
             System.out.print("Tekan enter untuk kembali");
             input.readLine();
+            menuPelanggan();
         } 
         catch (Exception e) 
         {
-            e.printStackTrace();
+            System.err.println(e);
         }
     }
 }
