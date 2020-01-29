@@ -43,9 +43,11 @@ public class Sewa {
                     menuCariSewa();
                     break;
                 case 4:
-                default:
-                    System.out.println("Pilihan salah");
                     break;
+                default:
+                    System.out.println("Pilihan Salah!");
+                    System.out.print("Tekan enter untuk kembali");
+                    input.readLine();
             }
         }
         catch(Exception e) {

@@ -3,7 +3,7 @@ package pboevoy;
 import java.io.*;
 import java.sql.*;
 
-public class Pembayaran extends ClearScreen{
+public class Pembayaran {
     
     ResultSet rs;
     ConnectDB db = new ConnectDB("root", "");
@@ -13,7 +13,7 @@ public class Pembayaran extends ClearScreen{
     public void bayar_sewa() {
     try {
         db.connect();
-        clrscr();
+        cls.clrscr();
             
         System.out.format("=============================================%n");
         System.out.format("|            PEMBAYARAN SEWA BAJU           |%n");

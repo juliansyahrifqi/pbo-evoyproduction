@@ -82,22 +82,9 @@ public class Penyewaan {
                 input.readLine();
             } else // Jika data pelanggan belum ada
             {
-                System.err.println("Data pelanggan dengan " + id_pelanggan + " belum terdaftar");
-                System.out.print("Daftarkan pelanggan (y/n) ? ");
-                
-                char daftar = (char)input.read();
-                
-                switch(daftar) {
-                    case 'y': 
-                        pelanggan.tambahDataPelanggan();
-                    break;     
-                    case 'n':
-                    default:
-                        System.err.println("Masukkan salah");
-                        System.out.println("Tekan enter untuk kembali");
-                        input.readLine();
-                    break;
-                }
+                System.err.println("\nData pelanggan dengan " + id_pelanggan + " belum terdaftar");
+                System.out.println("Silahkan daftarkan terlebih dauhulu id pelanggan "+id_pelanggan);
+                input.readLine();   
             }
             
             //Menghitung jml_hari
@@ -132,6 +119,26 @@ public class Penyewaan {
             update_sewa = String.format(update_sewa, updateBayar, no_sewa);
             
             db.getStatement().execute(update_sewa);
+        }
+        catch(SQLIntegrityConstraintViolationException e) {
+            try {
+                System.err.println("\nNo Sewa sudah ada!");
+                System.out.println("Silahkan masukkan no sewa yang lain!");
+                input.readLine();
+            }
+            catch(IOException err) {
+                System.out.print(err);
+            }
+        }
+        catch(SQLException e) {
+            try {
+                System.err.println("\nTanggal yang dimasukkan salah");
+                System.out.print("Silahkan masukkan tanggal yang lain!");
+                input.readLine();
+            }
+            catch(IOException err) {
+                err.printStackTrace();
+            }
         }
         catch(NumberFormatException e) {
             try {

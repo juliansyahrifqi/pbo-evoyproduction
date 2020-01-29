@@ -51,8 +51,12 @@ public class Pelanggan {
                     hapusDataPelanggan();
                     break;
                 case 6:
+                    break;
                 default:
                     System.out.println("Pilihan salah");
+                    System.out.print("Tekan enter untuk kembali");
+                    input.readLine();
+                    menuPelanggan();
                     break;
             }
         }
@@ -257,6 +261,10 @@ public class Pelanggan {
                     break;
                 default:
                     System.err.println("Pilihan Salah");
+                    System.out.print("Tekan enter untuk kembali");
+                    input.readLine();
+                    menuCariPelanggan();
+                    
                     break;
             }
         }
@@ -388,13 +396,13 @@ public class Pelanggan {
             
             rs = db.getStatement().executeQuery(sql);
             
-            String tbl ="| %-12s | %-12s | %-14s | %-8s | %-12s | %n";
+            String tbl ="| %-12s | %-12s | %-31s | %-8s | %-13s | %n";
 
-            System.out.format("=========================================================================%n");
-            System.out.format("|                       Data Pelanggan Evoy Production                   |%n");
-            System.out.format("+==============+==============+================+==========+==============+%n");
-            System.out.format("| ID_Pelanggan |     Nama     |     Alamat     |   Kota   |    No. Tlp   |%n");
-            System.out.format("+==============+==============+================+==========+==============+%n");
+            System.out.format("==========================================================================================+%n");
+            System.out.format("|                               Data Pelanggan Evoy Production                            |%n");
+            System.out.format("+==============+==============+=================================+==========+===============+%n");
+            System.out.format("| ID_Pelanggan |     Nama     |     \t    Alamat  \t \t|   Kota   |    No. Tlp    |%n");
+            System.out.format("+==============+==============+=================================+==========+===============+%n");
             
             while(rs.next()) {
                 id_pelanggan = rs.getString("id_pelanggan");
@@ -405,7 +413,7 @@ public class Pelanggan {
                 
                 System.out.format(tbl, id_pelanggan, nama, alamat, kota, no_tlp);
             }
-            System.out.format("+==============+==============+================+==========+==============+%n"); 
+            System.out.format("+==============+==============+==================================+==========+==============+%n");
             
             // Open new statement for resultset
             rs = db.getStatement().executeQuery(sql);

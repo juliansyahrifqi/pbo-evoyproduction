@@ -52,8 +52,11 @@ public class Baju{
                     hapusDataBaju();
                     break;
                 case 6:
+                    break;
                 default:
                     System.out.println("Pilihan salah");
+                    System.out.print("Tekan enter untuk kembali");
+                    input.readLine();
                     break;
             }
         }
@@ -321,7 +324,7 @@ public class Baju{
             rs = db.getStatement().executeQuery(sql);
             
             if(rs.next() == false ) {
-                System.out.println("Data baju dengan kode >= "+kode_baju+" tidak ditemukan");
+                System.out.println("Data baju dengan kode "+kode_baju+" tidak ditemukan");
             }
             
             System.out.print("Tekan enter untuk kembali");
